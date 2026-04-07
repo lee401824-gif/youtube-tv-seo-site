@@ -14,7 +14,7 @@ const pageJsonLd = {
   name: "Channel Style YouTube Player",
   description:
     "A search landing page about a channel style YouTube player for desktop continuous viewing.",
-  url: "https://example.com/channel-style-youtube-player",
+  url: "https://youtube-tv-seo-site.vercel.app/channel-style-youtube-player",
 };
 
 export default function ChannelStyleYouTubePlayerPage() {

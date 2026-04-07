@@ -3,21 +3,21 @@ import Link from "next/link";
 import SiteHeader from "../components/site-header";
 
 export const metadata: Metadata = {
-  title: "YouTube Playlist Loop Player for Desktop | YouTube TV Web",
+  title: "YouTube Autoplay Web App for Desktop | YouTube TV Web",
   description:
-    "Explore a desktop-first YouTube playlist loop player concept with looping playback, channel-style flow, autoplay behavior, and continuous viewing.",
+    "Explore a desktop-first YouTube autoplay web app concept with channel-style playback, automatic next video flow, playlist loop behavior, and continuous viewing.",
 };
 
 const pageJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "YouTube Playlist Loop Player for Desktop",
+  name: "YouTube Autoplay Web App for Desktop",
   description:
-    "A search landing page about looping YouTube playlists on desktop with a channel-style web app experience.",
-  url: "https://example.com/youtube-playlist-loop-player",
+    "A search landing page about a desktop YouTube autoplay web app with channel-style flow and continuous viewing.",
+  url: "https://youtube-tv-seo-site.vercel.app/youtube-autoplay-web-app",
 };
 
-export default function YouTubePlaylistLoopPlayerPage() {
+export default function YouTubeAutoplayWebAppPage() {
   return (
     <main className="page">
       <SiteHeader />
@@ -31,13 +31,14 @@ export default function YouTubePlaylistLoopPlayerPage() {
         <div className="container">
           <p className="eyebrow">Search Landing Page</p>
           <h1 className="heroTitle">
-            A YouTube playlist loop player for longer desktop viewing sessions
+            A YouTube autoplay web app for desktop continuous viewing
           </h1>
           <p className="heroDescription">
-            Many users want a YouTube playlist loop player that can keep videos
-            going without stopping at the end of a list. This page explains a
-            desktop-first approach built around looping playback, autoplay flow,
-            and a more continuous YouTube viewing experience.
+            Many users want a YouTube autoplay web app that keeps playback going
+            automatically instead of forcing them to search and click again and
+            again. This page explains a desktop-first approach built around
+            automatic next video flow, channel-style playback, and playlist loop
+            behavior.
           </p>
 
           <div className="heroButtons">
@@ -54,30 +55,31 @@ export default function YouTubePlaylistLoopPlayerPage() {
       <section className="section">
         <div className="container twoColumn">
           <div>
-            <h2 className="sectionTitle">Why playlist loop matters</h2>
+            <h2 className="sectionTitle">Why autoplay matters</h2>
             <p className="sectionText">
-              A standard YouTube session often stops when a playlist finishes or
-              when users reach the end of the current flow. A playlist loop
-              player solves that problem by returning playback to the beginning.
+              A normal YouTube session often requires repeated manual action.
+              Users finish one video, then search, click, wait, and decide
+              again. A YouTube autoplay web app is useful because it reduces
+              that repeated friction.
             </p>
             <p className="sectionText">
-              This is especially useful on desktop, where users often want
-              longer passive viewing sessions for music, background watching,
-              repeated topic viewing, or a TV-like continuous experience.
+              On desktop, autoplay becomes even more valuable because users
+              often want longer passive sessions while working, studying,
+              relaxing, or simply watching from a larger screen.
             </p>
           </div>
 
           <div>
             <h2 className="sectionTitle">What users usually want</h2>
             <p className="sectionText">
-              When people search for a YouTube playlist loop player, they often
-              want a simple way to keep a playlist alive without manually
-              restarting it every time it ends.
+              When people search for a YouTube autoplay web app, they are often
+              looking for a player that can continue to the next video
+              automatically, keep a smoother flow, and feel less interrupted
+              than ordinary browsing.
             </p>
             <p className="sectionText">
-              Many users also want autoplay support, a smoother browsing flow,
-              and a channel-style viewing structure that feels less interrupted
-              and more continuous.
+              Many also want looping playlists, channel-like grouping, and a
+              desktop layout that supports more relaxed continuous playback.
             </p>
           </div>
         </div>
@@ -85,56 +87,57 @@ export default function YouTubePlaylistLoopPlayerPage() {
 
       <section className="section altSection">
         <div className="container">
-          <h2 className="sectionTitle">What makes a good playlist loop experience</h2>
+          <h2 className="sectionTitle">Core ideas behind a better autoplay experience</h2>
 
           <div className="cardGrid">
             <article className="featureCard">
-              <h3 className="cardTitle">Loop back to the beginning</h3>
+              <h3 className="cardTitle">Automatic next video</h3>
               <p className="cardText">
-                The core idea is simple. When the last video finishes, playback
-                should return to the first item so the viewing session can
-                continue.
+                The most important part of an autoplay web app is simple: when
+                one video ends, the next one should continue with as little
+                manual work as possible.
               </p>
             </article>
 
             <article className="featureCard">
-              <h3 className="cardTitle">Autoplay between videos</h3>
+              <h3 className="cardTitle">Channel-style grouping</h3>
               <p className="cardText">
-                A useful loop player also needs autoplay behavior between items,
-                so the playlist feels smooth instead of constantly interrupted.
+                Videos feel more useful when they are grouped into channel-like
+                flows, so users can stay inside a mood or topic for longer.
               </p>
             </article>
 
             <article className="featureCard">
-              <h3 className="cardTitle">Longer passive watching</h3>
+              <h3 className="cardTitle">Playlist loop</h3>
               <p className="cardText">
-                Looping is valuable when users want music, repeated topics, or a
-                TV-like background session that stays active longer.
+                A longer autoplay session often needs loop behavior so the
+                playlist can return to the beginning and keep going.
               </p>
             </article>
 
             <article className="featureCard">
-              <h3 className="cardTitle">Desktop-first layout</h3>
+              <h3 className="cardTitle">Desktop-first player flow</h3>
               <p className="cardText">
-                Desktop screens make longer looping sessions easier because users
-                can keep the player open and manage channels more comfortably.
+                A desktop layout supports longer viewing sessions better because
+                users can keep the player open and browse more comfortably.
               </p>
             </article>
 
             <article className="featureCard">
-              <h3 className="cardTitle">Channel-style flow</h3>
+              <h3 className="cardTitle">Less interruption</h3>
               <p className="cardText">
-                A playlist loop player becomes even more useful when videos are
-                grouped into channel-like viewing flows rather than random one-off
-                choices.
+                The real value of autoplay is not only speed. It is the feeling
+                of continuity and reduced interruption during the viewing
+                session.
               </p>
             </article>
 
             <article className="featureCard">
-              <h3 className="cardTitle">Less stopping and restarting</h3>
+              <h3 className="cardTitle">Personal browser setup</h3>
               <p className="cardText">
-                The main value of looping is reducing the need to restart the
-                session manually every time the playlist reaches its end.
+                A lightweight browser-based setup can store playback-related
+                information locally to support continuous use on the same
+                machine.
               </p>
             </article>
           </div>
@@ -143,16 +146,16 @@ export default function YouTubePlaylistLoopPlayerPage() {
 
       <section className="section">
         <div className="container">
-          <h2 className="sectionTitle">How YouTube TV Web approaches playlist looping</h2>
+          <h2 className="sectionTitle">How YouTube TV Web approaches autoplay</h2>
           <p className="sectionText">
-            YouTube TV Web is being built around continuous desktop viewing. One
-            important part of that idea is playlist loop behavior, where the
-            final item can lead back to the beginning to keep the session alive.
+            YouTube TV Web is being built around the idea that YouTube playback
+            should feel more continuous on desktop. That means giving users a
+            channel-style flow, automatic next video behavior, and playlist loop
+            support instead of a one-video-at-a-time browsing pattern.
           </p>
           <p className="sectionText">
-            Combined with channel-style playback and autoplay flow, playlist
-            looping helps turn YouTube into a more relaxed desktop viewing
-            system that feels closer to TV.
+            This creates a viewing experience that feels calmer, more passive,
+            and more like a lightweight personal TV system inside a browser.
           </p>
         </div>
       </section>
@@ -162,18 +165,18 @@ export default function YouTubePlaylistLoopPlayerPage() {
           <div>
             <h2 className="sectionTitle">Who this page is for</h2>
             <p className="sectionText">
-              This page is useful for desktop users searching for a YouTube
-              playlist loop player, a better way to keep playlists going, or a
-              more continuous channel-style playback experience.
+              This page is useful for desktop users looking for a YouTube
+              autoplay web app, a better way to keep videos moving
+              automatically, or a more continuous playback environment.
             </p>
           </div>
 
           <div>
             <h2 className="sectionTitle">Where to go next</h2>
             <p className="sectionText">
-              You can continue to the features page to understand playback
-              behavior, move to the guide page for basic usage flow, or open the
-              app area where the future player entry point will live.
+              You can continue to the features page to understand the core
+              playback behavior, move to the guide page for the usage flow, or
+              open the app area where the future player entry point will live.
             </p>
           </div>
         </div>
@@ -191,14 +194,6 @@ export default function YouTubePlaylistLoopPlayerPage() {
               </p>
             </Link>
 
-            <Link href="/youtube-autoplay-web-app" className="linkCard">
-              <h3 className="cardTitle">YouTube Autoplay Web App</h3>
-              <p className="cardText">
-                Read a detailed page about autoplay flow and continuous YouTube
-                playback on desktop.
-              </p>
-            </Link>
-
             <Link href="/features" className="linkCard">
               <h3 className="cardTitle">Features</h3>
               <p className="cardText">
@@ -206,10 +201,17 @@ export default function YouTubePlaylistLoopPlayerPage() {
               </p>
             </Link>
 
+            <Link href="/guide" className="linkCard">
+              <h3 className="cardTitle">Guide</h3>
+              <p className="cardText">
+                Read the basic usage flow and setup direction.
+              </p>
+            </Link>
+
             <Link href="/faq" className="linkCard">
               <h3 className="cardTitle">FAQ</h3>
               <p className="cardText">
-                Read common questions about browser storage, API keys, and
+                Read common questions about desktop use, browser storage, and
                 playback behavior.
               </p>
             </Link>

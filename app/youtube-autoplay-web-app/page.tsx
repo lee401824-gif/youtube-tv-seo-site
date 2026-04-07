@@ -3,21 +3,21 @@ import Link from "next/link";
 import SiteHeader from "../components/site-header";
 
 export const metadata: Metadata = {
-  title: "YouTube Autoplay Web App for Desktop | YouTube TV Web",
+  title: "Watch YouTube Like TV on Desktop | YouTube TV Web",
   description:
-    "Explore a desktop-first YouTube autoplay web app concept with channel-style playback, automatic next video flow, playlist loop behavior, and continuous viewing.",
+    "Learn how to watch YouTube like TV on desktop with channel-style playback, autoplay flow, playlist loop behavior, and a more continuous viewing experience.",
 };
 
 const pageJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "YouTube Autoplay Web App for Desktop",
+  name: "Watch YouTube Like TV on Desktop",
   description:
-    "A search landing page about a desktop YouTube autoplay web app with channel-style flow and continuous viewing.",
-  url: "https://example.com/youtube-autoplay-web-app",
+    "A search landing page about watching YouTube like TV on desktop with a channel-style web app experience.",
+  url: "https://youtube-tv-seo-site.vercel.app/watch-youtube-like-tv",
 };
 
-export default function YouTubeAutoplayWebAppPage() {
+export default function WatchYouTubeLikeTvPage() {
   return (
     <main className="page">
       <SiteHeader />
@@ -31,22 +31,22 @@ export default function YouTubeAutoplayWebAppPage() {
         <div className="container">
           <p className="eyebrow">Search Landing Page</p>
           <h1 className="heroTitle">
-            A YouTube autoplay web app for desktop continuous viewing
+            Watch YouTube like TV on desktop with a channel-style flow
           </h1>
           <p className="heroDescription">
-            Many users want a YouTube autoplay web app that keeps playback going
-            automatically instead of forcing them to search and click again and
-            again. This page explains a desktop-first approach built around
-            automatic next video flow, channel-style playback, and playlist loop
-            behavior.
+            Many people want to watch YouTube like TV instead of manually
+            searching for the next video every few minutes. This page explains a
+            desktop-first way to create a more continuous YouTube viewing
+            experience with channel-style playback, autoplay flow, and playlist
+            looping.
           </p>
 
           <div className="heroButtons">
             <Link href="/app" className="primaryButton">
               Open App
             </Link>
-            <Link href="/features" className="secondaryButton">
-              View Features
+            <Link href="/guide" className="secondaryButton">
+              Read Guide
             </Link>
           </div>
         </div>
@@ -55,31 +55,30 @@ export default function YouTubeAutoplayWebAppPage() {
       <section className="section">
         <div className="container twoColumn">
           <div>
-            <h2 className="sectionTitle">Why autoplay matters</h2>
+            <h2 className="sectionTitle">Why people search this phrase</h2>
             <p className="sectionText">
-              A normal YouTube session often requires repeated manual action.
-              Users finish one video, then search, click, wait, and decide
-              again. A YouTube autoplay web app is useful because it reduces
-              that repeated friction.
+              When users search for terms like watch YouTube like TV, they are
+              usually looking for a more passive and comfortable viewing style.
+              They do not want to keep choosing every next video by hand.
             </p>
             <p className="sectionText">
-              On desktop, autoplay becomes even more valuable because users
-              often want longer passive sessions while working, studying,
-              relaxing, or simply watching from a larger screen.
+              On desktop, many viewers prefer a setup that feels more like a TV
+              channel: press play, keep watching, and let the system continue
+              through related content automatically.
             </p>
           </div>
 
           <div>
-            <h2 className="sectionTitle">What users usually want</h2>
+            <h2 className="sectionTitle">What this page is about</h2>
             <p className="sectionText">
-              When people search for a YouTube autoplay web app, they are often
-              looking for a player that can continue to the next video
-              automatically, keep a smoother flow, and feel less interrupted
-              than ordinary browsing.
+              This page describes the idea behind YouTube TV Web, a desktop
+              YouTube TV-style web app concept built around channel-style
+              playback, autoplay behavior, looping playlists, and continuous
+              viewing.
             </p>
             <p className="sectionText">
-              Many also want looping playlists, channel-like grouping, and a
-              desktop layout that supports more relaxed continuous playback.
+              The goal is not to replace YouTube itself, but to create a simpler
+              way to watch YouTube like a lightweight TV system in a browser.
             </p>
           </div>
         </div>
@@ -87,57 +86,55 @@ export default function YouTubeAutoplayWebAppPage() {
 
       <section className="section altSection">
         <div className="container">
-          <h2 className="sectionTitle">Core ideas behind a better autoplay experience</h2>
+          <h2 className="sectionTitle">What makes a TV-style YouTube experience</h2>
 
           <div className="cardGrid">
             <article className="featureCard">
-              <h3 className="cardTitle">Automatic next video</h3>
+              <h3 className="cardTitle">Channel-style playback</h3>
               <p className="cardText">
-                The most important part of an autoplay web app is simple: when
-                one video ends, the next one should continue with as little
-                manual work as possible.
+                Instead of randomly choosing individual videos, users can watch
+                through a grouped channel-like flow that feels more organized.
               </p>
             </article>
 
             <article className="featureCard">
-              <h3 className="cardTitle">Channel-style grouping</h3>
+              <h3 className="cardTitle">Autoplay flow</h3>
               <p className="cardText">
-                Videos feel more useful when they are grouped into channel-like
-                flows, so users can stay inside a mood or topic for longer.
+                A TV-like feeling needs the next video to continue
+                automatically. That reduces clicking and helps the session feel
+                smoother.
               </p>
             </article>
 
             <article className="featureCard">
               <h3 className="cardTitle">Playlist loop</h3>
               <p className="cardText">
-                A longer autoplay session often needs loop behavior so the
-                playlist can return to the beginning and keep going.
+                A looping playlist helps extend the viewing session and makes the
+                desktop experience feel more stable and continuous.
               </p>
             </article>
 
             <article className="featureCard">
-              <h3 className="cardTitle">Desktop-first player flow</h3>
+              <h3 className="cardTitle">Desktop-first layout</h3>
               <p className="cardText">
-                A desktop layout supports longer viewing sessions better because
-                users can keep the player open and browse more comfortably.
+                Watching YouTube like TV makes the most sense on desktop, where
+                users can browse channels and keep the player open comfortably.
               </p>
             </article>
 
             <article className="featureCard">
-              <h3 className="cardTitle">Less interruption</h3>
+              <h3 className="cardTitle">Less manual browsing</h3>
               <p className="cardText">
-                The real value of autoplay is not only speed. It is the feeling
-                of continuity and reduced interruption during the viewing
-                session.
+                A TV-style setup reduces repeated decision-making and helps users
+                stay in a viewing flow for longer periods.
               </p>
             </article>
 
             <article className="featureCard">
               <h3 className="cardTitle">Personal browser setup</h3>
               <p className="cardText">
-                A lightweight browser-based setup can store playback-related
-                information locally to support continuous use on the same
-                machine.
+                A lightweight personal setup can keep channels, keywords, and
+                playback-related information inside the browser environment.
               </p>
             </article>
           </div>
@@ -146,16 +143,16 @@ export default function YouTubeAutoplayWebAppPage() {
 
       <section className="section">
         <div className="container">
-          <h2 className="sectionTitle">How YouTube TV Web approaches autoplay</h2>
+          <h2 className="sectionTitle">How YouTube TV Web fits this need</h2>
           <p className="sectionText">
-            YouTube TV Web is being built around the idea that YouTube playback
-            should feel more continuous on desktop. That means giving users a
-            channel-style flow, automatic next video behavior, and playlist loop
-            support instead of a one-video-at-a-time browsing pattern.
+            YouTube TV Web is being built around exactly this viewing problem:
+            how to make YouTube feel less like endless manual searching and more
+            like a simple channel-based desktop viewing system.
           </p>
           <p className="sectionText">
-            This creates a viewing experience that feels calmer, more passive,
-            and more like a lightweight personal TV system inside a browser.
+            That means focusing on channel flow, autoplay, playlist loop
+            behavior, and a viewing rhythm that feels closer to TV than standard
+            browsing.
           </p>
         </div>
       </section>
@@ -163,20 +160,20 @@ export default function YouTubeAutoplayWebAppPage() {
       <section className="section altSection">
         <div className="container twoColumn">
           <div>
-            <h2 className="sectionTitle">Who this page is for</h2>
+            <h2 className="sectionTitle">Who this is for</h2>
             <p className="sectionText">
-              This page is useful for desktop users looking for a YouTube
-              autoplay web app, a better way to keep videos moving
-              automatically, or a more continuous playback environment.
+              This kind of experience is useful for desktop users who want a
+              more passive viewing session, a calmer interface, and a channel
+              concept instead of constant searching.
             </p>
           </div>
 
           <div>
-            <h2 className="sectionTitle">Where to go next</h2>
+            <h2 className="sectionTitle">What to do next</h2>
             <p className="sectionText">
               You can continue to the features page to understand the core
-              playback behavior, move to the guide page for the usage flow, or
-              open the app area where the future player entry point will live.
+              playback ideas, move to the guide page for usage flow, or open the
+              app area where the real player experience will connect later.
             </p>
           </div>
         </div>
@@ -187,32 +184,32 @@ export default function YouTubeAutoplayWebAppPage() {
           <h2 className="sectionTitle">Quick links</h2>
 
           <div className="linkGrid">
-            <Link href="/watch-youtube-like-tv" className="linkCard">
-              <h3 className="cardTitle">Watch YouTube Like TV</h3>
-              <p className="cardText">
-                Read a detailed page about TV-style YouTube viewing on desktop.
-              </p>
-            </Link>
-
             <Link href="/features" className="linkCard">
               <h3 className="cardTitle">Features</h3>
               <p className="cardText">
-                Learn how autoplay, channel-style playback, and looping work.
+                Learn how channel-style playback, autoplay, and looping work.
               </p>
             </Link>
 
             <Link href="/guide" className="linkCard">
               <h3 className="cardTitle">Guide</h3>
               <p className="cardText">
-                Read the basic usage flow and setup direction.
+                Read the basic viewing flow and setup direction.
               </p>
             </Link>
 
             <Link href="/faq" className="linkCard">
               <h3 className="cardTitle">FAQ</h3>
               <p className="cardText">
-                Read common questions about desktop use, browser storage, and
-                playback behavior.
+                Read common questions about browser storage, API keys, and
+                desktop use.
+              </p>
+            </Link>
+
+            <Link href="/app" className="linkCard">
+              <h3 className="cardTitle">Open App</h3>
+              <p className="cardText">
+                Move toward the real app entry point.
               </p>
             </Link>
           </div>
