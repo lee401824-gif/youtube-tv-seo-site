@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../components/site-header";
 
-export const metadata: Metadata = {
-  title: "FAQ | YouTube TV Web",
-  description:
-    "Read frequently asked questions about YouTube TV Web, including desktop use, channel-style playback, autoplay, playlist looping, browser storage, and API key setup.",
-};
+const pageUrl = "https://youtube-tv-seo-site.vercel.app/faq";
+const pageTitle = "FAQ";
+const pageDescription =
+  "Read frequently asked questions about YouTube TV Web, including desktop use, channel-style playback, autoplay, playlist looping, browser storage, and API key setup.";
 
 const faqItems = [
   {
@@ -72,6 +71,36 @@ const faqJsonLd = {
       text: item.answer,
     },
   })),
+};
+
+export const metadata: Metadata = {
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: `${pageTitle} | YouTube TV Web`,
+    description: pageDescription,
+    url: pageUrl,
+    siteName: "YouTube TV Web",
+    locale: "en_US",
+    type: "article",
+    images: [
+      {
+        url: "/tv-app/favicon.png",
+        width: 512,
+        height: 512,
+        alt: "YouTube TV Web FAQ",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | YouTube TV Web`,
+    description: pageDescription,
+    images: ["/tv-app/favicon.png"],
+  },
 };
 
 export default function FaqPage() {

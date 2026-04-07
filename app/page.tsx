@@ -1,13 +1,48 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "./components/site-header";
+
+const pageUrl = "https://youtube-tv-seo-site.vercel.app";
+const pageTitle = "Home";
+const pageDescription =
+  "YouTube TV Web is a desktop-first YouTube TV-style web app for channel-style playback, autoplay flow, playlist looping, and continuous viewing.";
+
+export const metadata: Metadata = {
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: "YouTube TV Web | Watch YouTube Like a TV Channel",
+    description: pageDescription,
+    url: pageUrl,
+    siteName: "YouTube TV Web",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/tv-app/favicon.png",
+        width: 512,
+        height: 512,
+        alt: "YouTube TV Web",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "YouTube TV Web | Watch YouTube Like a TV Channel",
+    description: pageDescription,
+    images: ["/tv-app/favicon.png"],
+  },
+};
 
 const homeJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   name: "YouTube TV Web",
-  description:
-    "A desktop-first YouTube TV-style web app for channel-style playback, autoplay flow, playlist looping, and continuous viewing.",
-  url: "https://youtube-tv-seo-site.vercel.app",
+  description: pageDescription,
+  url: pageUrl,
 };
 
 export default function HomePage() {

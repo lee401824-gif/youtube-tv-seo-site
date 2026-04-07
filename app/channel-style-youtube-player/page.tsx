@@ -2,19 +2,48 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../components/site-header";
 
+const pageUrl =
+  "https://youtube-tv-seo-site.vercel.app/channel-style-youtube-player";
+const pageTitle = "Channel Style YouTube Player";
+const pageDescription =
+  "Explore a channel style YouTube player concept for desktop viewing with channel-based playback, autoplay flow, playlist looping, and a TV-like experience.";
+
 export const metadata: Metadata = {
-  title: "Channel Style YouTube Player | YouTube TV Web",
-  description:
-    "Explore a channel style YouTube player concept for desktop viewing with channel-based playback, autoplay flow, playlist looping, and a TV-like experience.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: `${pageTitle} | YouTube TV Web`,
+    description: pageDescription,
+    url: pageUrl,
+    siteName: "YouTube TV Web",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/tv-app/favicon.png",
+        width: 512,
+        height: 512,
+        alt: "Channel Style YouTube Player",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | YouTube TV Web`,
+    description: pageDescription,
+    images: ["/tv-app/favicon.png"],
+  },
 };
 
 const pageJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Channel Style YouTube Player",
-  description:
-    "A search landing page about a channel style YouTube player for desktop continuous viewing.",
-  url: "https://youtube-tv-seo-site.vercel.app/channel-style-youtube-player",
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
 };
 
 export default function ChannelStyleYouTubePlayerPage() {
@@ -87,7 +116,9 @@ export default function ChannelStyleYouTubePlayerPage() {
 
       <section className="section altSection">
         <div className="container">
-          <h2 className="sectionTitle">What makes a channel style YouTube player useful</h2>
+          <h2 className="sectionTitle">
+            What makes a channel style YouTube player useful
+          </h2>
 
           <div className="cardGrid">
             <article className="featureCard">
@@ -143,7 +174,9 @@ export default function ChannelStyleYouTubePlayerPage() {
 
       <section className="section">
         <div className="container">
-          <h2 className="sectionTitle">How YouTube TV Web uses the channel concept</h2>
+          <h2 className="sectionTitle">
+            How YouTube TV Web uses the channel concept
+          </h2>
           <p className="sectionText">
             YouTube TV Web is built around the idea that users should be able to
             pick a channel-like content group and keep watching without

@@ -2,19 +2,47 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../components/site-header";
 
+const pageUrl = "https://youtube-tv-seo-site.vercel.app/watch-youtube-like-tv";
+const pageTitle = "Watch YouTube Like TV on Desktop";
+const pageDescription =
+  "Learn how to watch YouTube like TV on desktop with channel-style playback, autoplay flow, playlist loop behavior, and a more continuous viewing experience.";
+
 export const metadata: Metadata = {
-  title: "Watch YouTube Like TV on Desktop | YouTube TV Web",
-  description:
-    "Learn how to watch YouTube like TV on desktop with channel-style playback, autoplay flow, playlist loop behavior, and a more continuous viewing experience.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: `${pageTitle} | YouTube TV Web`,
+    description: pageDescription,
+    url: pageUrl,
+    siteName: "YouTube TV Web",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/tv-app/favicon.png",
+        width: 512,
+        height: 512,
+        alt: "Watch YouTube Like TV on Desktop",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | YouTube TV Web`,
+    description: pageDescription,
+    images: ["/tv-app/favicon.png"],
+  },
 };
 
 const pageJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "Watch YouTube Like TV on Desktop",
-  description:
-    "A search landing page about watching YouTube like TV on desktop with a channel-style web app experience.",
-  url: "https://youtube-tv-seo-site.vercel.app/watch-youtube-like-tv",
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
 };
 
 export default function WatchYouTubeLikeTvPage() {
@@ -86,7 +114,9 @@ export default function WatchYouTubeLikeTvPage() {
 
       <section className="section altSection">
         <div className="container">
-          <h2 className="sectionTitle">What makes a TV-style YouTube experience</h2>
+          <h2 className="sectionTitle">
+            What makes a TV-style YouTube experience
+          </h2>
 
           <div className="cardGrid">
             <article className="featureCard">
@@ -145,14 +175,14 @@ export default function WatchYouTubeLikeTvPage() {
         <div className="container">
           <h2 className="sectionTitle">How YouTube TV Web fits this need</h2>
           <p className="sectionText">
-            YouTube TV Web is being built around exactly this viewing problem:
-            how to make YouTube feel less like endless manual searching and more
-            like a simple channel-based desktop viewing system.
+            YouTube TV Web is designed for viewers who want YouTube to feel
+            simpler, more continuous, and more like watching TV on desktop.
+            Instead of restarting the browsing process over and over, users can
+            stay inside a channel-style playback flow.
           </p>
           <p className="sectionText">
-            That means focusing on channel flow, autoplay, playlist loop
-            behavior, and a viewing rhythm that feels closer to TV than standard
-            browsing.
+            That makes the experience better for background watching, topic-based
+            viewing, long sessions, and a more relaxed desktop setup.
           </p>
         </div>
       </section>
@@ -162,18 +192,17 @@ export default function WatchYouTubeLikeTvPage() {
           <div>
             <h2 className="sectionTitle">Who this is for</h2>
             <p className="sectionText">
-              This kind of experience is useful for desktop users who want a
-              more passive viewing session, a calmer interface, and a channel
-              concept instead of constant searching.
+              This page is for users who want to watch YouTube like TV, prefer
+              desktop viewing, and want an easier way to keep videos flowing
+              without repeated searching and clicking.
             </p>
           </div>
 
           <div>
-            <h2 className="sectionTitle">What to do next</h2>
+            <h2 className="sectionTitle">Where to go next</h2>
             <p className="sectionText">
-              You can continue to the features page to understand the core
-              playback ideas, move to the guide page for usage flow, or open the
-              app area where the real player experience will connect later.
+              You can read the guide, explore the features, or open the app area
+              to move toward the actual YouTube TV-style player experience.
             </p>
           </div>
         </div>
@@ -184,32 +213,31 @@ export default function WatchYouTubeLikeTvPage() {
           <h2 className="sectionTitle">Quick links</h2>
 
           <div className="linkGrid">
-            <Link href="/features" className="linkCard">
-              <h3 className="cardTitle">Features</h3>
+            <Link href="/youtube-autoplay-web-app" className="linkCard">
+              <h3 className="cardTitle">YouTube Autoplay Web App</h3>
               <p className="cardText">
-                Learn how channel-style playback, autoplay, and looping work.
+                Learn more about automatic next video playback on desktop.
               </p>
             </Link>
 
-            <Link href="/guide" className="linkCard">
-              <h3 className="cardTitle">Guide</h3>
+            <Link href="/youtube-playlist-loop-player" className="linkCard">
+              <h3 className="cardTitle">Playlist Loop Player</h3>
               <p className="cardText">
-                Read the basic viewing flow and setup direction.
+                Learn more about looping playlists for longer viewing sessions.
               </p>
             </Link>
 
-            <Link href="/faq" className="linkCard">
-              <h3 className="cardTitle">FAQ</h3>
+            <Link href="/desktop-youtube-player" className="linkCard">
+              <h3 className="cardTitle">Desktop YouTube Player</h3>
               <p className="cardText">
-                Read common questions about browser storage, API keys, and
-                desktop use.
+                Learn more about a desktop-first YouTube player setup.
               </p>
             </Link>
 
-            <Link href="/app" className="linkCard">
-              <h3 className="cardTitle">Open App</h3>
+            <Link href="/channel-style-youtube-player" className="linkCard">
+              <h3 className="cardTitle">Channel Style YouTube Player</h3>
               <p className="cardText">
-                Move toward the real app entry point.
+                Learn more about channel-style YouTube playback.
               </p>
             </Link>
           </div>

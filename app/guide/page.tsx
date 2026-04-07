@@ -2,16 +2,90 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../components/site-header";
 
+const pageUrl = "https://youtube-tv-seo-site.vercel.app/guide";
+const pageTitle = "Guide";
+const pageDescription =
+  "Read the basic setup guide for YouTube TV Web, including desktop use, API key setup, channel selection, playlist behavior, and continue watching.";
+
+const pageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to use YouTube TV Web",
+  description: pageDescription,
+  url: pageUrl,
+  step: [
+    {
+      "@type": "HowToStep",
+      name: "Open the app",
+      text: "Move into the app area and prepare the player environment on a desktop browser.",
+    },
+    {
+      "@type": "HowToStep",
+      name: "Set up your API key",
+      text: "Enter your own YouTube Data API key if the player setup requires it for playlist and search behavior.",
+    },
+    {
+      "@type": "HowToStep",
+      name: "Choose a channel",
+      text: "Select a channel-style group to start watching videos in a more organized flow.",
+    },
+    {
+      "@type": "HowToStep",
+      name: "Let playback continue",
+      text: "The app can move to the next video automatically and keep the session flowing.",
+    },
+    {
+      "@type": "HowToStep",
+      name: "Loop if needed",
+      text: "When the playlist reaches the end, the viewing flow can return to the beginning.",
+    },
+    {
+      "@type": "HowToStep",
+      name: "Continue later",
+      text: "Because the app uses local browser storage, playback-related state can be remembered for later use in the same environment.",
+    },
+  ],
+};
+
 export const metadata: Metadata = {
-  title: "Guide | YouTube TV Web",
-  description:
-    "Read the basic setup guide for YouTube TV Web, including desktop use, API key setup, channel selection, playlist behavior, and continue watching.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: `${pageTitle} | YouTube TV Web`,
+    description: pageDescription,
+    url: pageUrl,
+    siteName: "YouTube TV Web",
+    locale: "en_US",
+    type: "article",
+    images: [
+      {
+        url: "/tv-app/favicon.png",
+        width: 512,
+        height: 512,
+        alt: "YouTube TV Web Guide",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | YouTube TV Web`,
+    description: pageDescription,
+    images: ["/tv-app/favicon.png"],
+  },
 };
 
 export default function GuidePage() {
   return (
     <main className="page">
       <SiteHeader currentPath="/guide" />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }}
+      />
 
       <section className="hero">
         <div className="container">

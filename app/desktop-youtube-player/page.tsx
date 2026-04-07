@@ -2,19 +2,48 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../components/site-header";
 
+const pageUrl =
+  "https://youtube-tv-seo-site.vercel.app/youtube-playlist-loop-player";
+const pageTitle = "YouTube Playlist Loop Player for Desktop";
+const pageDescription =
+  "Explore a desktop-first YouTube playlist loop player concept with looping playback, channel-style flow, autoplay behavior, and continuous viewing.";
+
 export const metadata: Metadata = {
-  title: "YouTube Playlist Loop Player for Desktop | YouTube TV Web",
-  description:
-    "Explore a desktop-first YouTube playlist loop player concept with looping playback, channel-style flow, autoplay behavior, and continuous viewing.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: `${pageTitle} | YouTube TV Web`,
+    description: pageDescription,
+    url: pageUrl,
+    siteName: "YouTube TV Web",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/tv-app/favicon.png",
+        width: 512,
+        height: 512,
+        alt: "YouTube Playlist Loop Player for Desktop",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | YouTube TV Web`,
+    description: pageDescription,
+    images: ["/tv-app/favicon.png"],
+  },
 };
 
 const pageJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  name: "YouTube Playlist Loop Player for Desktop",
-  description:
-    "A search landing page about looping YouTube playlists on desktop with a channel-style web app experience.",
-  url: "https://youtube-tv-seo-site.vercel.app/youtube-playlist-loop-player",
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
 };
 
 export default function YouTubePlaylistLoopPlayerPage() {
@@ -85,7 +114,9 @@ export default function YouTubePlaylistLoopPlayerPage() {
 
       <section className="section altSection">
         <div className="container">
-          <h2 className="sectionTitle">What makes a good playlist loop experience</h2>
+          <h2 className="sectionTitle">
+            What makes a good playlist loop experience
+          </h2>
 
           <div className="cardGrid">
             <article className="featureCard">
@@ -125,8 +156,8 @@ export default function YouTubePlaylistLoopPlayerPage() {
               <h3 className="cardTitle">Channel-style flow</h3>
               <p className="cardText">
                 A playlist loop player becomes even more useful when videos are
-                grouped into channel-like viewing flows rather than random one-off
-                choices.
+                grouped into channel-like viewing flows rather than random
+                one-off choices.
               </p>
             </article>
 
@@ -143,7 +174,9 @@ export default function YouTubePlaylistLoopPlayerPage() {
 
       <section className="section">
         <div className="container">
-          <h2 className="sectionTitle">How YouTube TV Web approaches playlist looping</h2>
+          <h2 className="sectionTitle">
+            How YouTube TV Web approaches playlist looping
+          </h2>
           <p className="sectionText">
             YouTube TV Web is being built around continuous desktop viewing. One
             important part of that idea is playlist loop behavior, where the

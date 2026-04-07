@@ -2,16 +2,58 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../components/site-header";
 
+const pageUrl = "https://youtube-tv-seo-site.vercel.app/features";
+const pageTitle = "Features";
+const pageDescription =
+  "Explore the main features of YouTube TV Web, including channel-style playback, automatic next video, playlist looping, continue watching, and desktop-first viewing.";
+
+const pageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Features | YouTube TV Web",
+  description: pageDescription,
+  url: pageUrl,
+};
+
 export const metadata: Metadata = {
-  title: "Features | YouTube TV Web",
-  description:
-    "Explore the main features of YouTube TV Web, including channel-style playback, automatic next video, playlist looping, continue watching, and desktop-first viewing.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: pageUrl,
+  },
+  openGraph: {
+    title: `${pageTitle} | YouTube TV Web`,
+    description: pageDescription,
+    url: pageUrl,
+    siteName: "YouTube TV Web",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/tv-app/favicon.png",
+        width: 512,
+        height: 512,
+        alt: "YouTube TV Web Features",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${pageTitle} | YouTube TV Web`,
+    description: pageDescription,
+    images: ["/tv-app/favicon.png"],
+  },
 };
 
 export default function FeaturesPage() {
   return (
     <main className="page">
       <SiteHeader currentPath="/features" />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }}
+      />
 
       <section className="hero">
         <div className="container">

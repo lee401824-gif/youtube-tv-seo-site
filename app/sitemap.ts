@@ -2,47 +2,44 @@ import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://youtube-tv-seo-site.vercel.app";
+  const now = new Date();
 
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: now,
     },
     {
       url: `${baseUrl}/features`,
-      lastModified: new Date(),
+      lastModified: now,
     },
     {
       url: `${baseUrl}/guide`,
-      lastModified: new Date(),
+      lastModified: now,
     },
     {
       url: `${baseUrl}/faq`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/app`,
-      lastModified: new Date(),
+      lastModified: now,
     },
     {
       url: `${baseUrl}/watch-youtube-like-tv`,
-      lastModified: new Date(),
+      lastModified: now,
     },
     {
       url: `${baseUrl}/youtube-autoplay-web-app`,
-      lastModified: new Date(),
+      lastModified: now,
     },
     {
       url: `${baseUrl}/youtube-playlist-loop-player`,
-      lastModified: new Date(),
+      lastModified: now,
     },
     {
       url: `${baseUrl}/desktop-youtube-player`,
-      lastModified: new Date(),
+      lastModified: now,
     },
     {
       url: `${baseUrl}/channel-style-youtube-player`,
-      lastModified: new Date(),
+      lastModified: now,
     },
   ];
 }
