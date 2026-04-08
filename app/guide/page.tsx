@@ -1,42 +1,44 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Beginner Guide | YouTube TV Web",
+  title: "Guide | YouTube TV Web",
   description:
-    "Beginner-friendly guide for creating a YouTube Data API key, protecting it with Vercel domain restrictions, understanding quota, and launching safely.",
+    "Complete beginner guide for YouTube TV Web: API key setup, restrictions, quota, channel naming, keyword setup, playlist flow, and playback guide.",
 };
 
 function Section({
-  eyebrow,
+  badge,
   title,
   description,
   children,
 }: {
-  eyebrow?: string;
+  badge?: string;
   title: string;
   description?: string;
   children: ReactNode;
 }) {
   return (
-    <section className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur md:p-8">
-      {(eyebrow || title || description) && (
-        <div className="mb-6">
-          {eyebrow ? (
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-red-300">
-              {eyebrow}
-            </p>
-          ) : null}
-          <h2 className="mt-2 text-2xl font-bold tracking-tight text-white md:text-3xl">
-            {title}
-          </h2>
-          {description ? (
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-zinc-300 md:text-base">
-              {description}
-            </p>
-          ) : null}
-        </div>
-      )}
+    <section className="rounded-[28px] border border-white/10 bg-white/[0.04] p-6 shadow-[0_20px_70px_rgba(0,0,0,0.28)] backdrop-blur md:p-8">
+      <div className="mb-6">
+        {badge ? (
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-red-300">
+            {badge}
+          </p>
+        ) : null}
+
+        <h2 className="mt-2 text-2xl font-bold tracking-tight text-white md:text-3xl">
+          {title}
+        </h2>
+
+        {description ? (
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-zinc-300 md:text-base">
+            {description}
+          </p>
+        ) : null}
+      </div>
+
       {children}
     </section>
   );
@@ -52,11 +54,12 @@ function StepCard({
   children: ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/20 p-5 transition-transform duration-200 hover:-translate-y-0.5 md:p-6">
+    <div className="rounded-2xl border border-white/10 bg-black/20 p-5 md:p-6">
       <div className="flex items-start gap-4">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-red-400/30 bg-red-500/15 text-sm font-bold text-red-200">
           {number}
         </div>
+
         <div className="min-w-0">
           <h3 className="text-lg font-semibold text-white md:text-xl">{title}</h3>
           <div className="mt-3 space-y-3 text-sm leading-7 text-zinc-200 md:text-base">
@@ -126,46 +129,64 @@ function BulletList({ items }: { items: ReactNode[] }) {
   );
 }
 
+function TopLinkButton({
+  href,
+  label,
+  primary = false,
+}: {
+  href: string;
+  label: string;
+  primary?: boolean;
+}) {
+  return (
+    <Link
+      href={href}
+      className={
+        primary
+          ? "inline-flex items-center justify-center rounded-full border border-red-400/30 bg-red-500/15 px-5 py-3 text-sm font-medium text-red-100 transition hover:bg-red-500/25"
+          : "inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.05] px-5 py-3 text-sm font-medium text-zinc-200 transition hover:bg-white/[0.08]"
+      }
+    >
+      {label}
+    </Link>
+  );
+}
+
 export default function GuidePage() {
   return (
     <main className="min-h-screen bg-[#08090d] text-white">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(220,38,38,0.18),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.08),transparent_18%),linear-gradient(180deg,#09090b_0%,#0d1117_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(220,38,38,0.18),transparent_28%),radial-gradient(circle_at_85%_20%,rgba(255,255,255,0.08),transparent_18%),linear-gradient(180deg,#09090b_0%,#0d1117_100%)]" />
 
       <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-16">
-        <section className="overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-zinc-900 via-black to-zinc-950 shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
-          <div className="grid gap-8 p-6 md:grid-cols-[1.4fr_0.9fr] md:p-10 lg:p-12">
+        <section className="overflow-hidden rounded-[34px] border border-white/10 bg-gradient-to-br from-zinc-900 via-black to-zinc-950 shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
+          <div className="grid gap-8 p-6 md:grid-cols-[1.25fr_0.85fr] md:p-10 lg:p-12">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-red-300">
-                Launch Guide for Beginners
+                Complete Beginner Guide
               </p>
 
               <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">
-                API 키 만들기부터
+                처음 시작하는 사람도
                 <br className="hidden md:block" />
-                보호 설정과 출시 준비까지
+                바로 따라할 수 있는 전체 가이드
               </h1>
 
               <p className="mt-6 max-w-2xl text-base leading-8 text-zinc-300 md:text-lg">
-                이 페이지는 초보자가 실제로 따라 하면서 바로 출시할 수 있도록 만든
-                가이드입니다.
+                이 페이지는 단순한 API 설명 페이지가 아니라,
+                <strong> 실제 출시 직전까지 따라가는 전체 사용 가이드</strong>
+                입니다.
                 <br />
-                어디 사이트에 들어가야 하는지,
-                어느 메뉴를 눌러야 하는지,
-                어떤 값을 넣어야 하는지,
-                Vercel 도메인 기준으로 어떻게 제한해야 하는지까지
-                한 번에 볼 수 있게 정리했습니다.
+                API 키 만들기, 보호 설정, 할당량 이해뿐 아니라
+                채널 이름 정하기, 키워드 정하기,
+                재생목록 흐름 이해,
+                자동 재생과 루프 동작까지 한 번에 정리했습니다.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
-                <span className="rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm text-zinc-200">
-                  초보자 기준 설명
-                </span>
-                <span className="rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm text-zinc-200">
-                  Vercel 도메인 기준
-                </span>
-                <span className="rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm text-zinc-200">
-                  출시 직전 체크 포함
-                </span>
+                <TopLinkButton href="/" label="Home" />
+                <TopLinkButton href="/features" label="Features" />
+                <TopLinkButton href="/faq" label="FAQ" />
+                <TopLinkButton href="/app" label="Open App" primary />
               </div>
             </div>
 
@@ -173,21 +194,21 @@ export default function GuidePage() {
               <div className="rounded-3xl border border-red-400/20 bg-red-500/10 p-5">
                 <p className="text-sm font-semibold text-red-200">가장 먼저 기억할 것</p>
                 <div className="mt-4 space-y-3 text-sm leading-7 text-red-50">
-                  <p>1. Google Cloud Console에서 프로젝트를 만든다</p>
-                  <p>2. YouTube Data API v3를 켠다</p>
-                  <p>3. API 키를 만든다</p>
-                  <p>4. 내 Vercel 도메인만 허용한다</p>
-                  <p>5. YouTube Data API v3만 허용한다</p>
+                  <p>1. Google Cloud Console에서 프로젝트를 만듭니다.</p>
+                  <p>2. YouTube Data API v3를 켭니다.</p>
+                  <p>3. API 키를 만든 뒤 제한을 겁니다.</p>
+                  <p>4. 채널 이름과 키워드를 정리합니다.</p>
+                  <p>5. 앱에서 채널 생성 후 재생을 확인합니다.</p>
                 </div>
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/[0.05] p-5">
-                <p className="text-sm font-semibold text-zinc-200">현재 도메인</p>
+                <p className="text-sm font-semibold text-zinc-200">현재 기준 도메인</p>
                 <div className="mt-4">
                   <CodePill>https://youtube-tv-seo-site.vercel.app</CodePill>
                 </div>
                 <p className="mt-4 text-sm leading-7 text-zinc-300">
-                  Restriction 설정은 이 주소를 기준으로 넣으면 됩니다.
+                  Restriction 설정은 이 도메인을 기준으로 하면 됩니다.
                 </p>
               </div>
             </div>
@@ -198,21 +219,21 @@ export default function GuidePage() {
           <HighlightCard
             title="기본 일일 할당량"
             value="10,000 units"
-            description="초보자는 먼저 하루 총 사용량이 이 숫자 안에서 움직인다고 이해하면 됩니다."
+            description="초보자는 먼저 하루 총량이 이 범위 안에서 움직인다고 이해하면 됩니다."
           />
           <HighlightCard
-            title="가장 비싼 요청"
+            title="검색 비용"
             value="search.list = 100"
-            description="채널이나 키워드를 검색하는 요청이 가장 큰 비용을 차지합니다."
+            description="키워드 검색과 채널 검색은 가장 큰 비용을 차지합니다."
           />
           <HighlightCard
-            title="가벼운 요청"
-            value="channels / videos / playlist = 1"
-            description="상세 정보 조회는 비교적 부담이 적지만, 많이 반복되면 누적됩니다."
+            title="상세 조회 비용"
+            value="1 unit"
+            description="channels.list, videos.list, playlistItems.list는 비교적 가볍습니다."
           />
         </section>
 
-        <section className="mt-8 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+        <section className="mt-8 grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="rounded-3xl border border-amber-400/20 bg-amber-500/10 p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-200">
               Before You Start
@@ -224,17 +245,18 @@ export default function GuidePage() {
               <BulletList
                 items={[
                   <>이 앱은 브라우저에서 YouTube API 키를 사용합니다.</>,
-                  <>그래서 <strong>제한 설정</strong>이 매우 중요합니다.</>,
                   <>
-                    최소한 <strong>웹사이트 제한</strong>과{" "}
-                    <strong>API 제한</strong>은 같이 걸어야 합니다.
+                    그래서 <strong>Websites 제한</strong>과{" "}
+                    <strong>API 제한</strong>이 중요합니다.
                   </>,
                   <>
-                    키를 너무 넓게 열어두면 다른 곳에서 사용될 위험이 커집니다.
+                    채널 이름과 키워드를 어떻게 정하느냐에 따라 검색 품질이 달라집니다.
                   </>,
                   <>
-                    사용량은 출시 전에 꼭 확인하고, 이상하면 키를 교체하는 것이
-                    안전합니다.
+                    앱 안의 재생목록 흐름과 유튜브 자체 재생목록은 같은 개념이 아닐 수 있습니다.
+                  </>,
+                  <>
+                    지금 가이드는 초보자가 실제 사용 흐름까지 이해할 수 있게 만드는 것이 목표입니다.
                   </>,
                 ]}
               />
@@ -253,11 +275,11 @@ export default function GuidePage() {
                 "1. Google Cloud Console 접속",
                 "2. 새 프로젝트 만들기",
                 "3. YouTube Data API v3 활성화",
-                "4. API 키 생성",
-                "5. Websites 제한 설정",
-                "6. API restrictions 설정",
-                "7. 앱에서 테스트",
-                "8. Quota 확인",
+                "4. API 키 생성 + 제한 설정",
+                "5. 채널 이름 정리",
+                "6. 키워드 정리",
+                "7. 앱에서 채널 생성",
+                "8. 재생목록/자동재생 확인",
               ].map((item) => (
                 <div
                   key={item}
@@ -272,9 +294,9 @@ export default function GuidePage() {
 
         <div className="mt-8 space-y-8">
           <Section
-            eyebrow="Step by Step"
+            badge="API Setup"
             title="1. 정말 처음부터: API 키 만드는 법"
-            description="아래 순서대로 그대로 따라 하면 됩니다. 초보자는 중간에 건너뛰지 말고, 위에서 아래로 순서대로 진행하세요."
+            description="아래 순서대로 위에서 아래로 차근차근 따라 하면 됩니다."
           >
             <div className="grid gap-4">
               <StepCard number="1" title="Google Cloud Console로 들어가기">
@@ -288,14 +310,13 @@ export default function GuidePage() {
                   items={[
                     <>상단의 프로젝트 선택 부분을 클릭합니다.</>,
                     <>
-                      <strong>NEW PROJECT</strong> 또는 <strong>새 프로젝트</strong>를
-                      누릅니다.
+                      <strong>NEW PROJECT</strong> 또는 <strong>새 프로젝트</strong>를 누릅니다.
                     </>,
                     <>프로젝트 이름을 입력합니다.</>,
                   ]}
                 />
                 <div className="pt-1">
-                  <p className="mb-2 text-sm text-zinc-300">추천 이름</p>
+                  <p className="mb-2 text-sm text-zinc-300">추천 프로젝트 이름</p>
                   <CodePill>YouTube TV Web</CodePill>
                 </div>
               </StepCard>
@@ -303,10 +324,7 @@ export default function GuidePage() {
               <StepCard number="3" title="방금 만든 프로젝트 선택 확인">
                 <p>
                   다시 상단 프로젝트 선택 영역을 눌러서
-                  방금 만든 프로젝트가 현재 선택되어 있는지 확인합니다.
-                </p>
-                <p>
-                  이 부분이 다르면 API도 다른 프로젝트에 만들어질 수 있으니 꼭 확인하세요.
+                  방금 만든 프로젝트가 선택되어 있는지 확인합니다.
                 </p>
               </StepCard>
 
@@ -351,7 +369,7 @@ export default function GuidePage() {
                   ]}
                 />
                 <p>
-                  키가 만들어졌다고 바로 끝난 것이 아닙니다.
+                  키를 만들었다고 끝난 것이 아닙니다.
                   <strong> 바로 제한 설정</strong>을 해야 합니다.
                 </p>
               </StepCard>
@@ -359,9 +377,9 @@ export default function GuidePage() {
           </Section>
 
           <Section
-            eyebrow="Security"
+            badge="Security"
             title="2. 초보자용 보안 설정"
-            description="브라우저에서 쓰는 API 키는 완전히 숨길 수 없습니다. 그래서 최소한 내 사이트에서만 쓰이게 제한해야 합니다."
+            description="브라우저에서 쓰는 키는 완전히 숨길 수 없기 때문에, 내 사이트에서만 동작하도록 제한하는 것이 중요합니다."
           >
             <div className="grid gap-4 lg:grid-cols-2">
               <InfoCard title="왜 제한 설정이 중요한가요?">
@@ -377,7 +395,7 @@ export default function GuidePage() {
               <InfoCard title="초보자용 핵심 규칙">
                 <BulletList
                   items={[
-                    <>Application restrictions는 <strong>Websites</strong>로 설정</>,
+                    <>Application restrictions는 <strong>Websites</strong></>,
                     <>Website restrictions에는 내 실제 Vercel 주소만 입력</>,
                     <>API restrictions는 <strong>YouTube Data API v3</strong>만 허용</>,
                   ]}
@@ -398,13 +416,10 @@ export default function GuidePage() {
                   <strong>Application restrictions</strong> 영역에서{" "}
                   <strong>Websites</strong>를 선택합니다.
                 </p>
-                <p>웹사이트에서 사용할 키이므로 이 옵션을 선택해야 합니다.</p>
               </StepCard>
 
               <StepCard number="3" title="Vercel 도메인 기준으로 주소 입력">
-                <p>
-                  지금은 Vercel 기본 도메인을 그대로 사용할 예정이므로 아래처럼 넣으면 됩니다.
-                </p>
+                <p>지금 프로젝트 기준 추천 입력값은 아래와 같습니다.</p>
 
                 <div className="mt-2 grid gap-3 rounded-2xl border border-white/10 bg-black/20 p-4">
                   <div>
@@ -421,7 +436,7 @@ export default function GuidePage() {
                   <p className="text-sm font-semibold text-red-200">주의</p>
                   <p className="mt-2 text-sm leading-7 text-red-100 md:text-base">
                     <CodePill>*.vercel.app/*</CodePill> 처럼 너무 넓게 넣지 마세요.
-                    지금은 내 실제 도메인만 넣는 것이 더 안전합니다.
+                    현재 사용하는 실제 도메인만 넣는 것이 더 안전합니다.
                   </p>
                 </div>
               </StepCard>
@@ -448,45 +463,224 @@ export default function GuidePage() {
           </Section>
 
           <Section
-            eyebrow="Examples"
-            title="3. Restriction examples for beginners"
-            description="초보자는 아래 예시를 그대로 보고 넣으면 됩니다. 지금 프로젝트는 Vercel 기본 도메인을 기준으로 맞췄습니다."
+            badge="Naming"
+            title="3. 채널 이름은 어떻게 정하면 좋은가요?"
+            description="초보자는 채널 이름을 너무 길게 쓰거나, 목적이 섞여 있는 이름을 만들기 쉽습니다. 채널 이름은 나중에 채널을 구분하기 쉽게 짧고 명확하게 만드는 것이 좋습니다."
           >
-            <div className="grid gap-4 lg:grid-cols-3">
-              <InfoCard title="Application restrictions">
-                <CodePill>Websites</CodePill>
+            <div className="grid gap-4 lg:grid-cols-2">
+              <InfoCard title="좋은 채널 이름 예시">
+                <BulletList
+                  items={[
+                    <>K-Pop Mix</>,
+                    <>News Korea</>,
+                    <>English Study</>,
+                    <>Kids Songs</>,
+                    <>Calm Piano</>,
+                  ]}
+                />
               </InfoCard>
 
-              <InfoCard title="Website restrictions">
-                <div className="space-y-3">
-                  <CodePill>youtube-tv-seo-site.vercel.app</CodePill>
-                  <CodePill>youtube-tv-seo-site.vercel.app/*</CodePill>
-                </div>
-              </InfoCard>
-
-              <InfoCard title="API restrictions">
-                <CodePill>YouTube Data API v3</CodePill>
+              <InfoCard title="좋지 않은 채널 이름 예시">
+                <BulletList
+                  items={[
+                    <>이거저거 다 넣은 테스트 채널 이름 1번</>,
+                    <>내가 나중에 다시 보려고 그냥 대충 만든 채널</>,
+                    <>music news study kids all</>,
+                  ]}
+                />
               </InfoCard>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-white/10 bg-black/20 p-5">
-              <h3 className="text-lg font-semibold text-white">
-                나중에 커스텀 도메인을 붙이면?
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-zinc-200 md:text-base">
-                나중에 자체 도메인을 연결하면 그 도메인도 추가해야 합니다.
-              </p>
-              <div className="mt-4 space-y-3">
-                <CodePill>yourdomain.com</CodePill>
-                <CodePill>yourdomain.com/*</CodePill>
-              </div>
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <HighlightCard
+                title="짧게"
+                value="2~4 단어"
+                description="너무 길면 한눈에 보기가 어렵습니다."
+              />
+              <HighlightCard
+                title="주제 중심"
+                value="한 가지 성격"
+                description="음악, 뉴스, 공부처럼 목적이 섞이지 않게 합니다."
+              />
+              <HighlightCard
+                title="나중에도 이해 가능"
+                value="직관적"
+                description="며칠 뒤 다시 봐도 무슨 채널인지 바로 알 수 있어야 합니다."
+              />
             </div>
           </Section>
 
           <Section
-            eyebrow="Quota"
-            title="4. 할당량(Quota) 초보자 설명"
-            description="이 부분은 초보자가 제일 헷갈리는 부분입니다. 그래서 숫자를 아주 단순하게 이해하는 것이 중요합니다."
+            badge="Keywords"
+            title="4. 키워드는 어떻게 정하면 좋은가요?"
+            description="키워드는 검색 결과 품질에 직접 영향을 줍니다. 초보자는 넓은 단어만 쓰기 쉬운데, 너무 넓으면 결과가 흐려질 수 있습니다."
+          >
+            <div className="grid gap-4 lg:grid-cols-2">
+              <InfoCard title="좋은 키워드 설정 방법">
+                <BulletList
+                  items={[
+                    <>너무 넓은 단어 1개보다, 의미가 분명한 단어를 고릅니다.</>,
+                    <>서로 같은 방향의 키워드 2~3개를 묶습니다.</>,
+                    <>채널 이름과 키워드의 주제를 맞추는 것이 좋습니다.</>,
+                    <>테스트하면서 결과가 너무 이상하면 키워드를 더 구체적으로 바꿉니다.</>,
+                  ]}
+                />
+              </InfoCard>
+
+              <InfoCard title="예시">
+                <div className="space-y-3">
+                  <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="font-medium text-white">예시 1. 공부용 영어 채널</p>
+                    <p className="mt-2 text-zinc-300">
+                      채널 이름: <strong>English Study</strong>
+                    </p>
+                    <p className="mt-1 text-zinc-300">
+                      키워드: <strong>english</strong>, <strong>listening</strong>,{" "}
+                      <strong>conversation</strong>
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="font-medium text-white">예시 2. 차분한 음악 채널</p>
+                    <p className="mt-2 text-zinc-300">
+                      채널 이름: <strong>Calm Piano</strong>
+                    </p>
+                    <p className="mt-1 text-zinc-300">
+                      키워드: <strong>piano</strong>, <strong>relax</strong>,{" "}
+                      <strong>calm music</strong>
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="font-medium text-white">예시 3. 어린이 노래 채널</p>
+                    <p className="mt-2 text-zinc-300">
+                      채널 이름: <strong>Kids Songs</strong>
+                    </p>
+                    <p className="mt-1 text-zinc-300">
+                      키워드: <strong>kids</strong>, <strong>songs</strong>,{" "}
+                      <strong>nursery rhyme</strong>
+                    </p>
+                  </div>
+                </div>
+              </InfoCard>
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-amber-400/20 bg-amber-500/10 p-5">
+              <h3 className="text-lg font-semibold text-amber-200">
+                초보자용 쉬운 기준
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-amber-100 md:text-base">
+                키워드 3개를 넣는다면,
+                <strong> 서로 같은 분위기의 단어 3개</strong>를 넣는다고 생각하면 쉽습니다.
+                완전히 다른 방향의 단어를 섞으면 결과가 어색해질 수 있습니다.
+              </p>
+            </div>
+          </Section>
+
+          <Section
+            badge="Playlist Flow"
+            title="5. 재생목록은 어떻게 이해하면 되나요?"
+            description="이 부분은 초보자가 가장 헷갈리는 부분입니다. 유튜브 자체 재생목록과 앱 안에서 만들어지는 재생 흐름은 다를 수 있습니다."
+          >
+            <div className="grid gap-4 lg:grid-cols-2">
+              <InfoCard title="이 앱 안에서의 재생목록 흐름">
+                <BulletList
+                  items={[
+                    <>사용자가 채널을 선택합니다.</>,
+                    <>앱이 해당 채널에 맞는 영상 목록을 불러옵니다.</>,
+                    <>그 목록이 앱 안에서 재생 순서처럼 사용됩니다.</>,
+                    <>영상이 끝나면 다음 영상으로 자동 이동할 수 있습니다.</>,
+                    <>마지막 영상까지 가면 처음으로 돌아가 루프될 수 있습니다.</>,
+                  ]}
+                />
+              </InfoCard>
+
+              <InfoCard title="유튜브 자체 재생목록과의 차이">
+                <BulletList
+                  items={[
+                    <>유튜브 앱이나 유튜브 웹사이트에서 직접 만든 재생목록이 있을 수 있습니다.</>,
+                    <>하지만 현재 앱 기능이 그 재생목록을 직접 가져오도록 구현되어 있지 않다면, 같은 개념으로 보면 안 됩니다.</>,
+                    <>즉, 초보자는 먼저 “이 앱 안에서 재생되는 목록 흐름”으로 이해하는 것이 가장 안전합니다.</>,
+                  ]}
+                />
+              </InfoCard>
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-red-400/20 bg-red-500/10 p-5">
+              <h3 className="text-lg font-semibold text-red-200">중요한 주의</h3>
+              <p className="mt-3 text-sm leading-7 text-red-100 md:text-base">
+                현재 앱이 <strong>유튜브 계정의 개인 재생목록을 직접 불러오는 기능</strong>
+                으로 구현되어 있는지 확인되지 않았다면,
+                가이드에서는 그 기능이 있는 것처럼 쓰면 안 됩니다.
+                그래서 이 페이지는 먼저
+                <strong> 앱 안의 재생 흐름</strong> 기준으로 설명하는 것이 안전합니다.
+              </p>
+            </div>
+          </Section>
+
+          <Section
+            badge="Playback"
+            title="6. 앱에서 실제 재생은 어떻게 진행되나요?"
+            description="초보자는 앱을 열고 나서 무엇을 눌러야 하는지, 어떤 순서로 영상이 넘어가는지를 알아야 합니다."
+          >
+            <div className="grid gap-4">
+              <StepCard number="1" title="앱 열기">
+                <p>
+                  상단의 <strong>Open App</strong> 버튼을 누르거나,
+                  직접 <CodePill>/app</CodePill> 페이지로 들어갑니다.
+                </p>
+              </StepCard>
+
+              <StepCard number="2" title="API 키 입력">
+                <p>
+                  앱에서 API 키 입력 영역이 보이면,
+                  Google Cloud Console에서 만든 키를 입력합니다.
+                </p>
+                <p>
+                  이 키는 YouTube Data API v3가 켜져 있어야 하고,
+                  제한 설정도 끝난 상태여야 합니다.
+                </p>
+              </StepCard>
+
+              <StepCard number="3" title="채널 이름과 키워드 설정">
+                <p>
+                  채널 이름은 내가 나중에 다시 봤을 때 바로 이해할 수 있게 적습니다.
+                </p>
+                <p>
+                  키워드는 서로 같은 성격의 단어 2~3개로 맞추는 것이 좋습니다.
+                </p>
+              </StepCard>
+
+              <StepCard number="4" title="채널 생성 또는 선택">
+                <p>
+                  앱에서 채널을 생성하거나 기존 채널을 선택하면,
+                  그 채널 기준으로 재생할 영상 목록이 준비됩니다.
+                </p>
+              </StepCard>
+
+              <StepCard number="5" title="재생 시작">
+                <p>
+                  첫 영상이 재생되면,
+                  앱은 채널 기반 TV처럼 다음 영상으로 자연스럽게 이어서 재생할 수 있습니다.
+                </p>
+              </StepCard>
+
+              <StepCard number="6" title="자동 재생 / 루프 / 이어보기 확인">
+                <BulletList
+                  items={[
+                    <>영상이 끝난 뒤 다음 영상으로 넘어가는지 확인합니다.</>,
+                    <>마지막 영상 이후 처음으로 돌아가는지 확인합니다.</>,
+                    <>다시 들어왔을 때 이어보기가 유지되는지 확인합니다.</>,
+                  ]}
+                />
+              </StepCard>
+            </div>
+          </Section>
+
+          <Section
+            badge="Quota"
+            title="7. 할당량(Quota) 초보자 설명"
+            description="이 부분은 숫자를 단순하게 이해하면 됩니다."
           >
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               <HighlightCard
@@ -517,7 +711,7 @@ export default function GuidePage() {
                   items={[
                     <>키워드 1개 검색 = search.list 1번</>,
                     <>키워드 3개 검색 = search.list 3번</>,
-                    <>즉 기본 검색 비용 = 300 units</>,
+                    <>기본 검색 비용 = 300 units</>,
                     <>10,000 ÷ 300 = 약 33회</>,
                   ]}
                 />
@@ -527,87 +721,58 @@ export default function GuidePage() {
                 </p>
               </InfoCard>
 
-              <InfoCard title="채널 몇 개 찾을 수 있나요?">
-                <p>이건 딱 한 숫자로 말하기 어렵습니다.</p>
+              <InfoCard title="채널 수는 왜 딱 잘라 말하기 어려운가요?">
                 <BulletList
                   items={[
-                    <>검색 1번당 결과를 몇 개 가져오는지</>,
-                    <>다음 페이지를 또 불러오는지</>,
-                    <>채널 상세 조회를 얼마나 추가하는지</>,
+                    <>검색 1번당 가져오는 결과 수가 다를 수 있습니다.</>,
+                    <>다음 페이지를 추가로 불러오면 비용이 더 듭니다.</>,
+                    <>채널 상세 조회를 얼마나 하느냐에 따라 달라집니다.</>,
                   ]}
                 />
-                <p>
-                  중요한 것은 추가 페이지를 더 부르면 quota가 또 사용된다는 점입니다.
-                </p>
               </InfoCard>
             </div>
-
-            <div className="mt-6 rounded-2xl border border-emerald-400/20 bg-emerald-500/10 p-5">
-              <h3 className="text-lg font-semibold text-emerald-200">
-                초보자용 현실적 해석
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-emerald-100 md:text-base">
-                지금 앱이 키워드 3개로 채널 후보를 찾는 구조라면,
-                먼저 “하루 약 30여 세트 정도의 검색 기준”으로 생각하면 이해하기 쉽습니다.
-              </p>
-            </div>
           </Section>
 
           <Section
-            eyebrow="Mistakes"
-            title="5. 초보자가 가장 많이 하는 실수"
-            description="출시 전에 아래 항목은 꼭 확인하세요."
+            badge="Examples"
+            title="8. Restriction examples for beginners"
+            description="초보자는 아래 예시를 그대로 보고 입력하면 됩니다."
           >
-            <div className="grid gap-4 md:grid-cols-2">
-              {[
-                {
-                  title: "실수 1. API를 안 켠 상태에서 키만 만듦",
-                  text: "프로젝트를 만들고 YouTube Data API v3를 반드시 Enable 해야 합니다.",
-                },
-                {
-                  title: "실수 2. 제한을 안 걸고 키를 사용함",
-                  text: "최소한 Websites 제한과 YouTube Data API v3 제한은 같이 거세요.",
-                },
-                {
-                  title: "실수 3. 너무 넓은 referrer를 넣음",
-                  text: "*.vercel.app/* 같이 너무 넓게 넣지 말고, 현재 쓰는 실제 도메인만 넣는 것이 안전합니다.",
-                },
-                {
-                  title: "실수 4. 추가 페이지 비용을 생각 안 함",
-                  text: "검색 결과 다음 페이지를 더 불러오면 quota가 또 사용됩니다.",
-                },
-              ].map((item) => (
-                <div
-                  key={item.title}
-                  className="rounded-2xl border border-red-400/20 bg-red-500/10 p-5"
-                >
-                  <h3 className="text-base font-semibold text-red-200 md:text-lg">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-7 text-red-50 md:text-base">
-                    {item.text}
-                  </p>
+            <div className="grid gap-4 lg:grid-cols-3">
+              <InfoCard title="Application restrictions">
+                <CodePill>Websites</CodePill>
+              </InfoCard>
+
+              <InfoCard title="Website restrictions">
+                <div className="space-y-3">
+                  <CodePill>youtube-tv-seo-site.vercel.app</CodePill>
+                  <CodePill>youtube-tv-seo-site.vercel.app/*</CodePill>
                 </div>
-              ))}
+              </InfoCard>
+
+              <InfoCard title="API restrictions">
+                <CodePill>YouTube Data API v3</CodePill>
+              </InfoCard>
             </div>
           </Section>
 
           <Section
-            eyebrow="Launch Checklist"
-            title="6. 출시 전 마지막 체크리스트"
-            description="이 부분만 체크해도 초보자가 실수할 가능성이 크게 줄어듭니다."
+            badge="Checklist"
+            title="9. 출시 전 마지막 체크리스트"
+            description="초보자는 이 부분을 하나씩 확인하면 실수가 크게 줄어듭니다."
           >
             <div className="grid gap-3">
               {[
                 "Google Cloud 프로젝트가 맞는지 확인",
                 "YouTube Data API v3가 Enable 상태인지 확인",
                 "API 키가 생성되었는지 확인",
-                "Application restrictions가 Websites인지 확인",
+                "Websites 제한이 설정되어 있는지 확인",
                 "youtube-tv-seo-site.vercel.app 이 들어가 있는지 확인",
                 "youtube-tv-seo-site.vercel.app/* 이 들어가 있는지 확인",
                 "API restrictions가 YouTube Data API v3만 허용하는지 확인",
-                "앱에서 실제 검색이 되는지 확인",
-                "Quotas 페이지에서 사용량이 보이는지 확인",
+                "채널 이름이 짧고 명확한지 확인",
+                "키워드 2~3개가 같은 주제로 정리되었는지 확인",
+                "앱에서 실제 재생, 자동재생, 루프, 이어보기가 동작하는지 확인",
               ].map((item, index) => (
                 <div
                   key={item}
@@ -631,26 +796,27 @@ export default function GuidePage() {
             <h2 className="mt-3 text-2xl font-bold tracking-tight text-white md:text-3xl">
               한 줄 정리
             </h2>
+
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               <div className="rounded-2xl border border-white/10 bg-black/20 p-5">
                 <h3 className="text-lg font-semibold text-white">핵심 순서</h3>
                 <div className="mt-4 space-y-3 text-sm leading-7 text-zinc-200 md:text-base">
-                  <p>1. Google Cloud Console에서 프로젝트를 만듭니다.</p>
+                  <p>1. 프로젝트를 만듭니다.</p>
                   <p>2. YouTube Data API v3를 켭니다.</p>
-                  <p>3. API 키를 만듭니다.</p>
-                  <p>4. 내 Vercel 도메인만 허용합니다.</p>
-                  <p>5. YouTube Data API v3만 허용합니다.</p>
+                  <p>3. API 키를 만들고 제한을 겁니다.</p>
+                  <p>4. 채널 이름과 키워드를 정리합니다.</p>
+                  <p>5. 앱에서 채널을 만들고 재생을 확인합니다.</p>
                 </div>
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-black/20 p-5">
-                <h3 className="text-lg font-semibold text-white">꼭 기억할 숫자</h3>
+                <h3 className="text-lg font-semibold text-white">꼭 기억할 기준</h3>
                 <div className="mt-4 space-y-3 text-sm leading-7 text-zinc-200 md:text-base">
-                  <p>기본 하루 할당량: 10,000 units</p>
-                  <p>search.list: 100 units</p>
-                  <p>channels.list: 1 unit</p>
-                  <p>videos.list: 1 unit</p>
-                  <p>playlistItems.list: 1 unit</p>
+                  <p>채널 이름은 짧고 분명하게</p>
+                  <p>키워드는 같은 주제 2~3개</p>
+                  <p>Websites 제한은 내 도메인만</p>
+                  <p>API 제한은 YouTube Data API v3만</p>
+                  <p>재생은 자동재생 / 루프 / 이어보기까지 확인</p>
                 </div>
               </div>
             </div>
