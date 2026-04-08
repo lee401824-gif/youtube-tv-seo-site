@@ -1,141 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <base href="/tv-app/">
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta
-    name="description"
-    content="YouTube TV Web is a desktop-first YouTube player with channel-style playback, autoplay flow, and playlist looping."
-  >
+  <meta name="description" content="A new Flutter project.">
 
+  <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="YouTube TV Web">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="youtube_tv_web">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>YouTube TV Web</title>
+  <title>youtube_tv_web</title>
   <link rel="manifest" href="manifest.json">
-
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #0f172a;
-      color: #e2e8f0;
-      width: 100%;
-      height: 100%;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
-
-    #boot-shell {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
-      z-index: 9999;
-      transition: opacity 0.28s ease;
-    }
-
-    #boot-shell.boot-hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .boot-card {
-      width: min(420px, calc(100% - 40px));
-      padding: 28px;
-      border-radius: 20px;
-      background: #1e293b;
-      border: 1px solid #334155;
-      box-sizing: border-box;
-      text-align: left;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
-    }
-
-    .boot-title {
-      margin: 0 0 8px;
-      font-size: 26px;
-      font-weight: 800;
-      color: #f8fafc;
-    }
-
-    .boot-subtitle {
-      margin: 0 0 18px;
-      font-size: 14px;
-      line-height: 1.6;
-      color: #cbd5e1;
-    }
-
-    .boot-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #94a3b8;
-      font-size: 14px;
-    }
-
-    .boot-spinner {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      border: 2px solid #334155;
-      border-top-color: #3b82f6;
-      animation: spin 1s linear infinite;
-      flex: 0 0 auto;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-  </style>
 </head>
 <body>
-  <div id="boot-shell">
-    <div class="boot-card">
-      <h1 class="boot-title">YouTube TV Web</h1>
-      <p class="boot-subtitle">
-        Loading the desktop channel-style YouTube player...
-      </p>
-      <div class="boot-row">
-        <div class="boot-spinner"></div>
-        <div>Please wait while the player starts.</div>
-      </div>
-    </div>
-  </div>
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
 
-  <script>
-    window.addEventListener("flutter-first-frame", function () {
-      const bootShell = document.getElementById("boot-shell");
-      if (!bootShell) return;
-
-      bootShell.classList.add("boot-hidden");
-
-      setTimeout(function () {
-        bootShell.remove();
-        document.body.style.overflow = "auto";
-      }, 320);
-    });
-
-    setTimeout(function () {
-      const bootShell = document.getElementById("boot-shell");
-      if (!bootShell) return;
-
-      const isStillVisible = !bootShell.classList.contains("boot-hidden");
-      if (isStillVisible) {
-        console.warn("Flutter app is still loading. If this continues, check browser console errors.");
-      }
-    }, 10000);
-  </script>
-
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
