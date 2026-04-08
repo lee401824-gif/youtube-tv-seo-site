@@ -133,8 +133,8 @@ function Section({
         <h2
           style={{
             margin: 0,
-            fontSize: 56,
-            lineHeight: 1.05,
+            fontSize: 44,
+            lineHeight: 1.08,
             fontWeight: 900,
             letterSpacing: "-0.03em",
             color: "#f3f4f6",
@@ -146,9 +146,9 @@ function Section({
         {description ? (
           <p
             style={{
-              marginTop: 20,
+              marginTop: 18,
               marginBottom: 0,
-              fontSize: 20,
+              fontSize: 18,
               lineHeight: 1.8,
               color: "#cbd5e1",
             }}
@@ -204,7 +204,7 @@ function Card({
       <h3
         style={{
           margin: 0,
-          fontSize: 28,
+          fontSize: 24,
           lineHeight: 1.2,
           fontWeight: 800,
           color: "#f8fafc",
@@ -218,8 +218,8 @@ function Card({
           marginTop: 18,
           display: "grid",
           gap: 12,
-          fontSize: 18,
-          lineHeight: 1.9,
+          fontSize: 17,
+          lineHeight: 1.85,
           color: "#dbe4f0",
         }}
       >
@@ -251,7 +251,7 @@ function StatCard({
       <p
         style={{
           margin: 0,
-          fontSize: 16,
+          fontSize: 15,
           fontWeight: 600,
           color: "#cbd5e1",
         }}
@@ -263,7 +263,7 @@ function StatCard({
         style={{
           marginTop: 16,
           marginBottom: 0,
-          fontSize: 42,
+          fontSize: 36,
           lineHeight: 1.1,
           fontWeight: 900,
           color: "#f8fafc",
@@ -277,7 +277,7 @@ function StatCard({
         style={{
           marginTop: 16,
           marginBottom: 0,
-          fontSize: 17,
+          fontSize: 16,
           lineHeight: 1.8,
           color: "#cbd5e1",
         }}
@@ -337,7 +337,7 @@ function StepCard({
           <h3
             style={{
               margin: 0,
-              fontSize: 28,
+              fontSize: 24,
               lineHeight: 1.2,
               fontWeight: 800,
               color: "#f8fafc",
@@ -351,8 +351,8 @@ function StepCard({
               marginTop: 16,
               display: "grid",
               gap: 12,
-              fontSize: 18,
-              lineHeight: 1.9,
+              fontSize: 17,
+              lineHeight: 1.85,
               color: "#dbe4f0",
             }}
           >
@@ -382,8 +382,8 @@ function BulletList({ items }: { items: ReactNode[] }) {
             display: "flex",
             gap: 12,
             alignItems: "flex-start",
-            fontSize: 18,
-            lineHeight: 1.9,
+            fontSize: 17,
+            lineHeight: 1.85,
             color: "#dbe4f0",
           }}
         >
@@ -413,7 +413,7 @@ function CodeBox({ children }: { children: ReactNode }) {
         border: "1px solid rgba(255,255,255,0.08)",
         background: "rgba(2,6,23,0.85)",
         padding: "10px 14px",
-        fontSize: 16,
+        fontSize: 15,
         color: "#93c5fd",
         wordBreak: "break-all",
       }}
@@ -466,8 +466,8 @@ function ChecklistItem({
         style={{
           margin: 0,
           paddingTop: 2,
-          fontSize: 18,
-          lineHeight: 1.9,
+          fontSize: 17,
+          lineHeight: 1.85,
           color: "#dbe4f0",
         }}
       >
@@ -564,9 +564,9 @@ export default function GuidePage() {
               style={{
                 marginTop: 28,
                 marginBottom: 0,
-                maxWidth: 1200,
-                fontSize: "clamp(54px, 8vw, 104px)",
-                lineHeight: 0.96,
+                maxWidth: 1120,
+                fontSize: "clamp(44px, 6vw, 76px)",
+                lineHeight: 1.02,
                 fontWeight: 900,
                 letterSpacing: "-0.05em",
                 color: "#f3f4f6",
@@ -579,10 +579,10 @@ export default function GuidePage() {
 
             <p
               style={{
-                marginTop: 34,
+                marginTop: 30,
                 marginBottom: 0,
-                maxWidth: 1100,
-                fontSize: 22,
+                maxWidth: 1040,
+                fontSize: 20,
                 lineHeight: 1.8,
                 color: "#cbd5e1",
               }}
@@ -595,7 +595,7 @@ export default function GuidePage() {
 
             <div
               style={{
-                marginTop: 42,
+                marginTop: 40,
                 display: "flex",
                 flexWrap: "wrap",
                 gap: 18,
@@ -616,29 +616,29 @@ export default function GuidePage() {
         >
           <Grid min={260}>
             <StatCard
-              title="기본 일일 할당량"
+              title="Daily default quota"
               value="10,000 units"
-              description="초보자는 먼저 하루 총량이 이 범위 안에서 움직인다고 이해하면 됩니다."
+              description="Beginners should first understand that daily API usage moves inside this total budget."
             />
             <StatCard
-              title="가장 큰 검색 비용"
+              title="Largest search cost"
               value="search.list = 100"
-              description="키워드 검색과 채널 검색은 가장 큰 비용을 차지합니다."
+              description="Keyword and channel discovery requests usually consume the biggest part of quota."
             />
             <StatCard
-              title="상세 조회 비용"
+              title="Detail lookup cost"
               value="1 unit"
-              description="channels.list, videos.list, playlistItems.list는 비교적 가볍습니다."
+              description="channels.list, videos.list, and playlistItems.list are much lighter requests."
             />
           </Grid>
         </section>
 
         <Section
           title="Channel naming guide"
-          description="채널 이름은 나중에 다시 봐도 무슨 채널인지 바로 알 수 있게 짧고 분명하게 만드는 것이 좋습니다."
+          description="A channel name should stay short and clear so you can understand it again later at a glance."
         >
           <Grid>
-            <Card title="좋은 채널 이름 예시">
+            <Card title="Good channel name examples">
               <BulletList
                 items={[
                   <>K-Pop Mix</>,
@@ -650,11 +650,11 @@ export default function GuidePage() {
               />
             </Card>
 
-            <Card title="좋지 않은 채널 이름 예시">
+            <Card title="Names to avoid">
               <BulletList
                 items={[
-                  <>이거저거 다 넣은 테스트 채널 이름 1번</>,
-                  <>내가 나중에 다시 보려고 그냥 대충 만든 채널</>,
+                  <>A long test channel name with too many mixed ideas</>,
+                  <>Something vague that only made sense for one quick test</>,
                   <>music news study kids all</>,
                 ]}
               />
@@ -664,21 +664,21 @@ export default function GuidePage() {
 
         <Section
           title="Keyword setup guide"
-          description="키워드는 검색 결과 품질에 직접 영향을 줍니다. 서로 같은 방향의 단어 2~3개를 묶는 것이 초보자에게 가장 이해하기 쉽습니다."
+          description="Keywords directly affect search quality. For beginners, the safest choice is using two or three keywords that point in the same direction."
         >
           <Grid>
-            <Card title="좋은 키워드 설정 방법">
+            <Card title="Good keyword rules">
               <BulletList
                 items={[
-                  <>너무 넓은 단어 1개보다 의미가 분명한 단어를 고릅니다.</>,
-                  <>서로 같은 방향의 키워드 2~3개를 묶습니다.</>,
-                  <>채널 이름과 키워드의 주제를 맞춥니다.</>,
-                  <>결과가 이상하면 키워드를 더 구체적으로 바꿉니다.</>,
+                  <>Choose meaningful words instead of one very broad word.</>,
+                  <>Group two or three keywords that match the same topic.</>,
+                  <>Keep the channel name and keywords aligned.</>,
+                  <>If the results feel noisy, make the keywords more specific.</>,
                 ]}
               />
             </Card>
 
-            <Card title="예시">
+            <Card title="Examples">
               <p style={{ margin: 0 }}>
                 <strong>English Study</strong> → english / listening / conversation
               </p>
@@ -694,84 +694,84 @@ export default function GuidePage() {
 
         <Section
           title="API key setup for beginners"
-          description="초보자는 아래 순서대로 위에서 아래로 그대로 따라 하면 됩니다."
+          description="Follow the steps in order from top to bottom without skipping."
         >
           <div style={{ display: "grid", gap: 24 }}>
-            <StepCard number="1" title="Google Cloud Console로 들어가기">
-              <p style={{ margin: 0 }}>아래 사이트로 들어갑니다.</p>
+            <StepCard number="1" title="Open Google Cloud Console">
+              <p style={{ margin: 0 }}>Go to the website below.</p>
               <div>
                 <CodeBox>https://console.cloud.google.com/</CodeBox>
               </div>
-              <p style={{ margin: 0 }}>구글 계정으로 로그인합니다.</p>
+              <p style={{ margin: 0 }}>Sign in with your Google account.</p>
             </StepCard>
 
-            <StepCard number="2" title="새 프로젝트 만들기">
+            <StepCard number="2" title="Create a new project">
               <BulletList
                 items={[
-                  <>상단의 프로젝트 선택 부분을 클릭합니다.</>,
+                  <>Click the project selector at the top.</>,
                   <>
-                    <strong>NEW PROJECT</strong> 또는 <strong>새 프로젝트</strong>를 누릅니다.
+                    Choose <strong>NEW PROJECT</strong>.
                   </>,
-                  <>프로젝트 이름을 입력합니다.</>,
+                  <>Enter a project name.</>,
                 ]}
               />
               <div>
                 <p
                   style={{
                     margin: "6px 0 10px",
-                    fontSize: 16,
+                    fontSize: 15,
                     color: "#cbd5e1",
                   }}
                 >
-                  추천 프로젝트 이름
+                  Recommended project name
                 </p>
                 <CodeBox>YouTube TV Web</CodeBox>
               </div>
             </StepCard>
 
-            <StepCard number="3" title="YouTube Data API v3 켜기">
+            <StepCard number="3" title="Enable YouTube Data API v3">
               <BulletList
                 items={[
-                  <>왼쪽 위 메뉴를 엽니다.</>,
+                  <>Open the top-left menu.</>,
                   <>
-                    <strong>APIs &amp; Services</strong>를 누릅니다.
+                    Select <strong>APIs &amp; Services</strong>.
                   </>,
                   <>
-                    <strong>Library</strong>를 누릅니다.
+                    Select <strong>Library</strong>.
                   </>,
                   <>
-                    검색창에 <strong>YouTube Data API v3</strong>를 입력합니다.
+                    Search for <strong>YouTube Data API v3</strong>.
                   </>,
                   <>
-                    검색 결과에서 <strong>YouTube Data API v3</strong>를 클릭합니다.
+                    Open <strong>YouTube Data API v3</strong>.
                   </>,
                   <>
-                    <strong>Enable</strong> 버튼을 누릅니다.
+                    Click <strong>Enable</strong>.
                   </>,
                 ]}
               />
             </StepCard>
 
-            <StepCard number="4" title="API 키 만들기">
+            <StepCard number="4" title="Create the API key">
               <BulletList
                 items={[
                   <>
-                    <strong>APIs &amp; Services</strong>로 갑니다.
+                    Open <strong>APIs &amp; Services</strong>.
                   </>,
                   <>
-                    <strong>Credentials</strong>를 누릅니다.
+                    Click <strong>Credentials</strong>.
                   </>,
                   <>
-                    <strong>Create Credentials</strong>를 누릅니다.
+                    Click <strong>Create Credentials</strong>.
                   </>,
                   <>
-                    <strong>API key</strong>를 선택합니다.
+                    Choose <strong>API key</strong>.
                   </>,
                 ]}
               />
               <p style={{ margin: 0 }}>
-                키를 만들었다고 끝난 것이 아닙니다.
-                <strong> 바로 제한 설정</strong>을 해야 합니다.
+                Creating the key is not the last step.
+                <strong> You must add restrictions right after that.</strong>
               </p>
             </StepCard>
           </div>
@@ -779,7 +779,7 @@ export default function GuidePage() {
 
         <Section
           title="Restriction examples for beginners"
-          description="현재 Vercel 기본 도메인을 그대로 사용할 예정이라면 아래 기준으로 입력하면 됩니다."
+          description="If you will keep using the current Vercel domain, you can use the following values."
         >
           <Grid>
             <Card title="Application restrictions">
@@ -801,29 +801,29 @@ export default function GuidePage() {
 
         <Section
           title="Playback and playlist flow"
-          description="초보자는 유튜브 자체 재생목록과 앱 안의 재생 흐름을 구분해서 이해하는 것이 가장 안전합니다."
+          description="Beginners should treat the in-app playback flow and YouTube's own playlist system as different ideas unless the app explicitly supports account playlists."
         >
           <Grid>
-            <Card title="이 앱 안에서의 재생 흐름">
+            <Card title="In-app playback flow">
               <BulletList
                 items={[
-                  <>사용자가 채널을 선택합니다.</>,
-                  <>앱이 해당 채널에 맞는 영상 목록을 불러옵니다.</>,
-                  <>그 목록이 앱 안에서 재생 순서처럼 사용됩니다.</>,
-                  <>영상이 끝나면 다음 영상으로 자동 이동할 수 있습니다.</>,
-                  <>마지막 영상까지 가면 처음으로 돌아가 루프될 수 있습니다.</>,
+                  <>Select a channel inside the app.</>,
+                  <>The app loads a matching list of videos for that channel.</>,
+                  <>That list becomes the playback order inside the app.</>,
+                  <>When one video ends, the app can continue to the next one automatically.</>,
+                  <>After the last video, playback can loop back to the start.</>,
                 ]}
               />
             </Card>
 
-            <Card title="초보자용 실제 사용 순서">
+            <Card title="Real beginner usage flow">
               <BulletList
                 items={[
-                  <>앱을 엽니다.</>,
-                  <>API 키를 입력합니다.</>,
-                  <>채널 이름과 키워드를 설정합니다.</>,
-                  <>채널을 생성하거나 선택합니다.</>,
-                  <>재생을 시작하고 자동재생 / 루프 / 이어보기를 확인합니다.</>,
+                  <>Open the app.</>,
+                  <>Enter the API key.</>,
+                  <>Set the channel name and keywords.</>,
+                  <>Create or select the channel.</>,
+                  <>Start playback and verify autoplay, loop, and resume behavior.</>,
                 ]}
               />
             </Card>
@@ -832,20 +832,20 @@ export default function GuidePage() {
 
         <Section
           title="Launch checklist"
-          description="출시 전에 아래 항목을 하나씩 확인하면 초보자 실수를 크게 줄일 수 있습니다."
+          description="Checking these items one by one will reduce beginner mistakes before release."
         >
           <div style={{ display: "grid", gap: 16 }}>
             {[
-              "Google Cloud 프로젝트가 맞는지 확인",
-              "YouTube Data API v3가 Enable 상태인지 확인",
-              "API 키가 생성되었는지 확인",
-              "Websites 제한이 설정되어 있는지 확인",
-              "youtube-tv-seo-site.vercel.app 이 들어가 있는지 확인",
-              "youtube-tv-seo-site.vercel.app/* 이 들어가 있는지 확인",
-              "API restrictions가 YouTube Data API v3만 허용하는지 확인",
-              "채널 이름이 짧고 명확한지 확인",
-              "키워드 2~3개가 같은 주제로 정리되었는지 확인",
-              "앱에서 실제 재생, 자동재생, 루프, 이어보기가 동작하는지 확인",
+              "Confirm the correct Google Cloud project is selected.",
+              "Confirm YouTube Data API v3 is enabled.",
+              "Confirm the API key was created.",
+              "Confirm website restrictions are enabled.",
+              "Confirm youtube-tv-seo-site.vercel.app is listed.",
+              "Confirm youtube-tv-seo-site.vercel.app/* is listed.",
+              "Confirm API restrictions allow only YouTube Data API v3.",
+              "Confirm channel names are short and clear.",
+              "Confirm keyword sets stay focused on one topic.",
+              "Confirm playback, autoplay, loop, and resume work correctly in the app.",
             ].map((item, index) => (
               <ChecklistItem key={item} number={index + 1} text={item} />
             ))}
@@ -870,8 +870,8 @@ export default function GuidePage() {
             <h2
               style={{
                 margin: 0,
-                fontSize: 56,
-                lineHeight: 1.05,
+                fontSize: 44,
+                lineHeight: 1.08,
                 fontWeight: 900,
                 letterSpacing: "-0.03em",
                 color: "#f3f4f6",
@@ -888,20 +888,20 @@ export default function GuidePage() {
                 gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
               }}
             >
-              <Card title="핵심 순서">
-                <p style={{ margin: 0 }}>1. 프로젝트를 만듭니다.</p>
-                <p style={{ margin: 0 }}>2. YouTube Data API v3를 켭니다.</p>
-                <p style={{ margin: 0 }}>3. API 키를 만들고 제한을 겁니다.</p>
-                <p style={{ margin: 0 }}>4. 채널 이름과 키워드를 정리합니다.</p>
-                <p style={{ margin: 0 }}>5. 앱에서 채널을 만들고 재생을 확인합니다.</p>
+              <Card title="Core order">
+                <p style={{ margin: 0 }}>1. Create the project.</p>
+                <p style={{ margin: 0 }}>2. Enable YouTube Data API v3.</p>
+                <p style={{ margin: 0 }}>3. Create the API key and restrict it.</p>
+                <p style={{ margin: 0 }}>4. Set channel names and keywords.</p>
+                <p style={{ margin: 0 }}>5. Create a channel in the app and test playback.</p>
               </Card>
 
-              <Card title="꼭 기억할 기준">
-                <p style={{ margin: 0 }}>채널 이름은 짧고 분명하게</p>
-                <p style={{ margin: 0 }}>키워드는 같은 주제 2~3개</p>
-                <p style={{ margin: 0 }}>Websites 제한은 내 도메인만</p>
-                <p style={{ margin: 0 }}>API 제한은 YouTube Data API v3만</p>
-                <p style={{ margin: 0 }}>자동재생 / 루프 / 이어보기까지 확인</p>
+              <Card title="What to remember">
+                <p style={{ margin: 0 }}>Keep channel names short and clear.</p>
+                <p style={{ margin: 0 }}>Use two or three related keywords.</p>
+                <p style={{ margin: 0 }}>Restrict the key to your domain only.</p>
+                <p style={{ margin: 0 }}>Allow only YouTube Data API v3.</p>
+                <p style={{ margin: 0 }}>Verify autoplay, loop, and resume before release.</p>
               </Card>
             </div>
           </div>
