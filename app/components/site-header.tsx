@@ -7,9 +7,10 @@ type SiteHeaderProps = {
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/features", label: "Features" },
-  { href: "/guide", label: "Guide" },
   { href: "/faq", label: "FAQ" },
-  { href: "/app", label: "App" },
+  { href: "/setup/api", label: "API Setup" },
+  { href: "/setup/channels", label: "Channel Setup" },
+  { href: "/watch", label: "Watch" },
 ];
 
 export default function SiteHeader({

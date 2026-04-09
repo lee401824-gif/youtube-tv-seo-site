@@ -2,47 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "./components/site-header";
 
-const pageUrl = "https://youtube-tv-seo-site.vercel.app";
-const pageTitle = "Home";
-const pageDescription =
-  "YouTube TV Web is a desktop-first YouTube TV-style web app for channel-style playback, autoplay flow, playlist looping, and continuous viewing.";
-
 export const metadata: Metadata = {
-  title: pageTitle,
-  description: pageDescription,
-  alternates: {
-    canonical: pageUrl,
-  },
-  openGraph: {
-    title: "YouTube TV Web | Watch YouTube Like a TV Channel",
-    description: pageDescription,
-    url: pageUrl,
-    siteName: "YouTube TV Web",
-    locale: "en_US",
-    type: "website",
-    images: [
-      {
-        url: "/tv-app/favicon.png",
-        width: 512,
-        height: 512,
-        alt: "YouTube TV Web",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "YouTube TV Web | Watch YouTube Like a TV Channel",
-    description: pageDescription,
-    images: ["/tv-app/favicon.png"],
-  },
-};
-
-const homeJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "YouTube TV Web",
-  description: pageDescription,
-  url: pageUrl,
+  title: "YouTube TV Web",
+  description: "Build your own YouTube TV using API + Channel + Keywords blocks.",
 };
 
 export default function HomePage() {
@@ -50,33 +12,74 @@ export default function HomePage() {
     <main className="page">
       <SiteHeader currentPath="/" />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
-      />
-
       <header className="hero">
         <div className="container">
           <h1 className="heroTitle">
-            YouTube TV-style Web App for Desktop Viewing
+            Build your own YouTube TV
           </h1>
 
           <p className="heroDescription">
-            A desktop-first YouTube experience with channel-style playback,
-            autoplay flow, playlist looping, and continuous viewing.
+            Think of this like LEGO.
+            <br />
+            You combine blocks and create your own result.
           </p>
 
           <div className="heroButtons">
-            <Link href="/app" className="primaryButton">
-              Open App
+            <Link href="/setup/api" className="primaryButton">
+              Start Building
             </Link>
 
-            <Link href="/guide" className="secondaryButton">
-              Read Guide
+            <Link href="/watch" className="secondaryButton">
+              See Result
             </Link>
           </div>
         </div>
       </header>
+
+      <section className="section">
+        <div className="container cardGrid">
+          <div className="featureCard">
+            <h2 className="cardTitle">Block 1: API Key</h2>
+            <p className="cardText">
+              This is your power source.
+              <br />
+              It lets the app talk to YouTube.
+            </p>
+          </div>
+
+          <div className="featureCard">
+            <h2 className="cardTitle">Block 2: Channel Name</h2>
+            <p className="cardText">
+              This is the identity of your TV channel.
+              <br />
+              Example: English Study, Calm Piano
+            </p>
+          </div>
+
+          <div className="featureCard">
+            <h2 className="cardTitle">Block 3: Keywords</h2>
+            <p className="cardText">
+              These decide what videos come in.
+              <br />
+              You control the content flow.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section altSection">
+        <div className="container">
+          <h2 className="sectionTitle">How it works</h2>
+
+          <p className="sectionText">
+            API + Channel + Keywords = Your own YouTube TV
+          </p>
+
+          <p className="sectionText">
+            Change the blocks → Change the result
+          </p>
+        </div>
+      </section>
 
       <section className="section">
         <div className="container">
@@ -105,12 +108,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      <footer className="footer">
-        <div className="container footerInner">
-          <p>YouTube TV Web</p>
-        </div>
-      </footer>
     </main>
   );
 }
