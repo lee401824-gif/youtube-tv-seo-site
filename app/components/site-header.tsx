@@ -10,6 +10,7 @@ const navItems = [
   { href: "/faq", label: "FAQ" },
   { href: "/setup/api", label: "API Setup" },
   { href: "/setup/channels", label: "Channel Setup" },
+  { href: "/setup/playlists", label: "Playlist Setup" },
   { href: "/watch", label: "Watch" },
 ];
 

@@ -1,4 +1,9 @@
 import type { KeywordSearchResult, VideoItem } from "@/app/lib/channel-types";
+import {
+  loadPlaylistGenerationSettings,
+  type PlaylistDurationMode,
+  type PlaylistLanguageMode,
+} from "@/app/lib/local-store";
 
 const HOST = "www.googleapis.com";
 const SEARCH_PATH = "/youtube/v3/search";
@@ -12,6 +17,7 @@ export async function fetchVideosForKeyword(params: {
 }): Promise<KeywordSearchResult> {
   const trimmedApiKey = params.apiKey.trim();
   const trimmedKeyword = params.keyword.trim();
+  const generationSettings = loadPlaylistGenerationSettings();
 
   if (!trimmedApiKey) {
     throw new Error("API key is empty.");
@@ -21,6 +27,8 @@ export async function fetchVideosForKeyword(params: {
     return { videos: [], nextPageToken: null };
   }
 
+  const relevanceLanguage = getRelevanceLanguage(generationSettings.languageMode);
+
   const queryParams: Record<string, string> = {
     part: "snippet",
     q: trimmedKeyword,
@@ -28,11 +36,14 @@ export async function fetchVideosForKeyword(params: {
     maxResults: String(params.maxResults ?? 50),
     order: "relevance",
     regionCode: "KR",
-    relevanceLanguage: "en",
     safeSearch: "moderate",
     videoEmbeddable: "true",
     key: trimmedApiKey,
   };
+
+  if (relevanceLanguage) {
+    queryParams.relevanceLanguage = relevanceLanguage;
+  }
 
   const trimmedPageToken = params.pageToken?.trim() ?? "";
   if (trimmedPageToken) {
@@ -98,7 +109,7 @@ export async function fetchVideosForKeyword(params: {
 
     if (!embeddable) continue;
     if (liveBroadcastContent !== "none") continue;
-    if (durationSeconds < 180) continue;
+    if (!matchesDurationFilter(durationSeconds, generationSettings.durationMode)) continue;
 
     byId.set(videoId, {
       videoId,
@@ -120,6 +131,47 @@ export async function fetchVideosForKeyword(params: {
     videos: orderedVideos,
     nextPageToken,
   };
+}
+
+function getRelevanceLanguage(languageMode: PlaylistLanguageMode): string | null {
+  switch (languageMode) {
+    case "en":
+      return "en";
+    case "ko":
+      return "ko";
+    case "ja":
+      return "ja";
+    case "zh":
+      return "zh";
+    case "hi":
+      return "hi";
+    case "pt-BR":
+      return "pt";
+    case "all":
+      return null;
+    default:
+      return "en";
+  }
+}
+
+function matchesDurationFilter(
+  durationSeconds: number,
+  durationMode: PlaylistDurationMode,
+): boolean {
+  switch (durationMode) {
+    case "min_180":
+      return durationSeconds >= 180;
+    case "min_120":
+      return durationSeconds >= 120;
+    case "min_60":
+      return durationSeconds >= 60;
+    case "max_179":
+      return durationSeconds > 0 && durationSeconds < 180;
+    case "all":
+      return durationSeconds > 0;
+    default:
+      return durationSeconds >= 180;
+  }
 }
 
 function parseIso8601Duration(input: string): number {

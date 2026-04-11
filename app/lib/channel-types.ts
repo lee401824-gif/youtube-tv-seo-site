@@ -10,11 +10,18 @@ export type VideoItem = {
   durationSeconds: number;
 };
 
+export type PlaylistGenerationSnapshot = {
+  durationMode: string;
+  playlistMaxSize: number;
+  languageMode: string;
+};
+
 export type ChannelCacheData = {
   displayNameSnapshot: string;
   keywordsSnapshot: string[];
   playlist: VideoItem[];
   nextPageTokenByKeyword: Record<string, string>;
+  generationSettingsSnapshot?: PlaylistGenerationSnapshot;
 };
 
 export type KeywordSearchResult = {

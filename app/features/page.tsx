@@ -22,7 +22,7 @@ export default function FeaturesPage() {
             <Link href="/" className="secondaryButton">
               Home
             </Link>
-            <Link href="/watch" className="primaryButton">
+            <Link href="/watch" className="secondaryButton">
               Open Watch
             </Link>
           </div>

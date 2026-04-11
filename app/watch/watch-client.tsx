@@ -22,10 +22,12 @@ import {
   loadLastChannelIndex,
   loadLastVideoId,
   loadLastVideoIndex,
+  loadPlaylistGenerationSettings,
   saveChannelCache,
   saveLastChannelIndex,
   saveLastVideoId,
   saveLastVideoIndex,
+  type PlaylistGenerationSettings,
 } from "@/app/lib/local-store";
 import { fetchVideosForKeyword } from "@/app/lib/youtube-api";
 
@@ -66,6 +68,41 @@ type FetchVideosBatchResult = {
 };
 
 let youtubeApiPromise: Promise<void> | null = null;
+
+function cloneGenerationSettingsSnapshot(
+  settings: PlaylistGenerationSettings,
+): { durationMode: string; playlistMaxSize: number; languageMode: string } {
+  return {
+    durationMode: settings.durationMode,
+    playlistMaxSize: settings.playlistMaxSize,
+    languageMode: settings.languageMode,
+  };
+}
+
+function getEffectivePlaylistMaxSize(settings: PlaylistGenerationSettings): number {
+  const normalized = Math.round(settings.playlistMaxSize);
+
+  if (!Number.isFinite(normalized) || normalized < 1) {
+    return PLAYLIST_MAX_SIZE;
+  }
+
+  return normalized;
+}
+
+function doesCacheMatchGenerationSettings(
+  cache: ChannelCacheData | undefined,
+  settings: PlaylistGenerationSettings,
+): boolean {
+  if (!cache?.generationSettingsSnapshot) {
+    return false;
+  }
+
+  return (
+    cache.generationSettingsSnapshot.durationMode === settings.durationMode &&
+    cache.generationSettingsSnapshot.playlistMaxSize === settings.playlistMaxSize &&
+    cache.generationSettingsSnapshot.languageMode === settings.languageMode
+  );
+}
 
 function loadYouTubeIframeApi(): Promise<void> {
   if (typeof window === "undefined") {
@@ -214,6 +251,34 @@ export default function WatchClient() {
     );
     setIsLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+
+    if (isGeneratingPlaylist || isAppendingMoreVideos) {
+      return;
+    }
+
+    const existingCache = channelCacheBySlot[currentChannelIndex];
+    if (!existingCache?.playlist?.length) {
+      return;
+    }
+
+    const generationSettings = loadPlaylistGenerationSettings();
+    const matches = doesCacheMatchGenerationSettings(existingCache, generationSettings);
+
+    if (!matches) {
+      setStatusMessage("Playlist settings changed. Click a channel to rebuild the playlist.");
+    }
+  }, [
+    channelCacheBySlot,
+    currentChannelIndex,
+    isAppendingMoreVideos,
+    isGeneratingPlaylist,
+    isLoading,
+  ]);
 
   const handleVideoEnded = useCallback(async () => {
     if (isAdvancingRef.current) return;
@@ -379,10 +444,6 @@ export default function WatchClient() {
       setStatusMessage(`${params.updateStatusPrefix} (${params.videoIndex + 1}/${playlist.length})`);
 
       await ensurePlayer(video.videoId);
-
-      if (params.forcePlay && playerRef.current) {
-        playerRef.current.loadVideoById(video.videoId);
-      }
     },
     [ensurePlayer],
   );
@@ -455,11 +516,14 @@ export default function WatchClient() {
 
   const trimPlaylistAndAdjustProgress = useCallback(
     (slotIndex: number, playlist: VideoItem[]): VideoItem[] => {
-      if (playlist.length <= PLAYLIST_MAX_SIZE) {
+      const generationSettings = loadPlaylistGenerationSettings();
+      const effectiveMaxSize = getEffectivePlaylistMaxSize(generationSettings);
+
+      if (playlist.length <= effectiveMaxSize) {
         return playlist;
       }
 
-      const overflow = playlist.length - PLAYLIST_MAX_SIZE;
+      const overflow = playlist.length - effectiveMaxSize;
       const trimmed = playlist.slice(overflow);
       const storageKey = getSlotStorageKey(slotIndex);
       const savedIndex = loadLastVideoIndex(storageKey);
@@ -491,6 +555,7 @@ export default function WatchClient() {
       const currentNormalizedKeywords = getNormalizedKeywordSet(config);
       const currentDisplayName = config.displayName;
       const existingCache = channelCacheBySlot[slotIndex];
+      const generationSettings = loadPlaylistGenerationSettings();
 
       if (!currentKeywords.length) {
         return false;
@@ -500,6 +565,9 @@ export default function WatchClient() {
       let keywordsToSearch: string[] = [];
 
       if (!existingCache) {
+        requiresFullRefresh = true;
+        keywordsToSearch = currentKeywords;
+      } else if (!doesCacheMatchGenerationSettings(existingCache, generationSettings)) {
         requiresFullRefresh = true;
         keywordsToSearch = currentKeywords;
       } else {
@@ -547,6 +615,7 @@ export default function WatchClient() {
             keywordsSnapshot: currentNormalizedKeywords,
             playlist: trimmed,
             nextPageTokenByKeyword: fetchResult.nextPageTokenByKeyword,
+            generationSettingsSnapshot: cloneGenerationSettingsSnapshot(generationSettings),
           };
 
           saveChannelCache(slotIndex, newCache);
@@ -575,6 +644,7 @@ export default function WatchClient() {
             ...(existingCache?.nextPageTokenByKeyword ?? {}),
             ...fetchResult.nextPageTokenByKeyword,
           },
+          generationSettingsSnapshot: cloneGenerationSettingsSnapshot(generationSettings),
         };
 
         saveChannelCache(slotIndex, updatedCache);
@@ -666,6 +736,7 @@ export default function WatchClient() {
       const currentKeywords = getEffectiveKeywords(config);
       const currentNormalizedKeywords = getNormalizedKeywordSet(config);
       const existingCache = channelCacheBySlot[slotIndex];
+      const generationSettings = loadPlaylistGenerationSettings();
 
       if (!apiKey.trim()) {
         setStatusMessage("Please enter your API key in the API setup page.");
@@ -679,6 +750,11 @@ export default function WatchClient() {
 
       if (!existingCache || !existingCache.playlist.length) {
         setStatusMessage("Create the playlist first by clicking a channel button.");
+        return;
+      }
+
+      if (!doesCacheMatchGenerationSettings(existingCache, generationSettings)) {
+        setStatusMessage("Playlist settings changed. Click the channel button first to rebuild the playlist.");
         return;
       }
 
@@ -703,6 +779,7 @@ export default function WatchClient() {
           keywordsSnapshot: currentNormalizedKeywords,
           playlist: trimmed,
           nextPageTokenByKeyword: fetchResult.nextPageTokenByKeyword,
+          generationSettingsSnapshot: cloneGenerationSettingsSnapshot(generationSettings),
         };
 
         saveChannelCache(slotIndex, updatedCache);
@@ -932,25 +1009,35 @@ export default function WatchClient() {
 
               <div className="watchPlaylistBody">
                 {currentPlaylist.length ? (
-                  currentPlaylist.map((item, index) => (
-                    <button
-                      key={`${item.videoId}-${index}`}
-                      type="button"
-                      className="watchPlaylistRow"
-                      onClick={() => void jumpToPlaylistVideo(index)}
-                    >
-                      <span className="watchPlaylistBadge">{index + 1}</span>
+                  currentPlaylist.map((item, index) => {
+                    const isCurrentPlaying = hasStarted && index === currentVideoIndex;
 
-                      <span className="watchPlaylistContent">
-                        <span className="watchPlaylistTitle">{item.title}</span>
-                        <span className="watchPlaylistSubtitle">
-                          Click to play this video
+                    return (
+                      <button
+                        key={`${item.videoId}-${index}`}
+                        type="button"
+                        className="watchPlaylistRow"
+                        onClick={() => void jumpToPlaylistVideo(index)}
+                      >
+                        <span
+                          className={`watchPlaylistBadge ${
+                            isCurrentPlaying ? "watchPlaylistBadgeActive" : ""
+                          }`}
+                        >
+                          {index + 1}
                         </span>
-                      </span>
 
-                      <span className="watchPlaylistArrow">›</span>
-                    </button>
-                  ))
+                        <span className="watchPlaylistContent">
+                          <span className="watchPlaylistTitle">{item.title}</span>
+                          <span className="watchPlaylistSubtitle">
+                            Click to play this video
+                          </span>
+                        </span>
+
+                        <span className="watchPlaylistArrow">›</span>
+                      </button>
+                    );
+                  })
                 ) : (
                   <div className="watchPlaylistEmpty">There is no playlist yet.</div>
                 )}
@@ -967,7 +1054,7 @@ export default function WatchClient() {
             className="secondaryButton watchFillButton"
             onClick={() => void appendMoreVideosForChannel(currentChannelIndex)}
           >
-            {isAppendingMoreVideos ? "Loading..." : "Load More"}
+            {isAppendingMoreVideos ? "Loading..." : "Load More for Selected Channel"}
           </button>
         </div>
 
@@ -1202,6 +1289,12 @@ const sharedStyles = `
     font-size: 18px;
     font-weight: 800;
     flex-shrink: 0;
+  }
+
+  .watchPlaylistBadgeActive {
+    background: #dc2626;
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(220, 38, 38, 0.28);
   }
 
   .watchPlaylistContent {

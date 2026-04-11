@@ -25,7 +25,7 @@ export default function HomePage() {
           </p>
 
           <div className="heroButtons">
-            <Link href="/setup/api" className="primaryButton">
+            <Link href="/setup/api" className="secondaryButton">
               Start Building
             </Link>
 

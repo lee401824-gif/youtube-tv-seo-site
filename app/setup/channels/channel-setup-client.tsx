@@ -110,7 +110,10 @@ export default function ChannelSetupPage() {
             <Link href="/setup/api" className="secondaryButton">
               Back to API Setup
             </Link>
-            <Link href="/watch" className="primaryButton">
+            <Link href="/setup/playlists" className="secondaryButton">
+              Next: Playlist Setup
+            </Link>
+            <Link href="/watch" className="secondaryButton">
               Open Watch
             </Link>
           </div>
@@ -239,13 +242,15 @@ export default function ChannelSetupPage() {
             ))}
           </div>
 
-          <div className="heroButtons" style={{ marginTop: 28 }}>
-            <button type="button" className="secondaryButton" onClick={addChannel}>
-              Add Channel
+          <div className="heroButtons">
+            <button type="button" className="secondaryButton" onClick={handleSave}>
+              Save Channel Settings
             </button>
-            <button type="button" className="primaryButton" onClick={handleSave}>
-              Save Channel Setup
-            </button>
+
+            <Link href="/setup/playlists" className="secondaryButton">
+              Go to Playlist Setup
+            </Link>
+
             <Link href="/watch" className="secondaryButton">
               Open Watch
             </Link>

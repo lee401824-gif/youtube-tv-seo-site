@@ -20,7 +20,7 @@ export default function FaqPage() {
             <Link href="/" className="secondaryButton">
               Home
             </Link>
-            <Link href="/setup/api" className="primaryButton">
+            <Link href="/setup/api" className="secondaryButton">
               Start Setup
             </Link>
           </div>

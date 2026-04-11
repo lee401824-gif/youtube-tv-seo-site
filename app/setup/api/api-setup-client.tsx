@@ -43,7 +43,7 @@ export default function ApiSetupPage() {
           </p>
 
           <div className="heroButtons">
-            <Link href="/setup/channels" className="primaryButton">
+            <Link href="/setup/channels" className="secondaryButton">
               Next: Channel Setup
             </Link>
             <Link href="/watch" className="secondaryButton">
@@ -189,7 +189,7 @@ export default function ApiSetupPage() {
               />
 
               <div className="heroButtons" style={{ marginTop: 0 }}>
-                <button type="button" className="primaryButton" onClick={handleSave}>
+                <button type="button" className="secondaryButton" onClick={handleSave}>
                   Save API Key
                 </button>
                 <Link href="/setup/channels" className="secondaryButton">
