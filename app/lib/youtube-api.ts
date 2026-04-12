@@ -35,7 +35,7 @@ export async function fetchVideosForKeyword(params: {
     type: "video",
     maxResults: String(params.maxResults ?? 50),
     order: "relevance",
-    regionCode: "KR",
+    regionCode: "US",
     safeSearch: "moderate",
     videoEmbeddable: "true",
     key: trimmedApiKey,

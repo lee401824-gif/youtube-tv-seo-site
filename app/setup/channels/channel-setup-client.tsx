@@ -243,6 +243,10 @@ export default function ChannelSetupPage() {
           </div>
 
           <div className="heroButtons">
+            <button type="button" className="secondaryButton" onClick={addChannel}>
+              Add Channel
+            </button>
+
             <button type="button" className="secondaryButton" onClick={handleSave}>
               Save Channel Settings
             </button>
