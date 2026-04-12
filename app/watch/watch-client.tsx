@@ -58,8 +58,8 @@ declare global {
 }
 
 type YouTubePlayerInstance = {
-  loadVideoById: (videoId: string) => void;
-  destroy: () => void;
+  loadVideoById?: (videoId: string) => void;
+  destroy?: () => void;
 };
 
 type FetchVideosBatchResult = {
@@ -71,11 +71,11 @@ let youtubeApiPromise: Promise<void> | null = null;
 
 function cloneGenerationSettingsSnapshot(
   settings: PlaylistGenerationSettings,
-): { durationMode: string; playlistMaxSize: number; languageMode: string } {
+): { durationMode: string; playlistMaxSize: number; regionCode: string } {
   return {
     durationMode: settings.durationMode,
     playlistMaxSize: settings.playlistMaxSize,
-    languageMode: settings.languageMode,
+    regionCode: settings.regionCode,
   };
 }
 
@@ -100,7 +100,7 @@ function doesCacheMatchGenerationSettings(
   return (
     cache.generationSettingsSnapshot.durationMode === settings.durationMode &&
     cache.generationSettingsSnapshot.playlistMaxSize === settings.playlistMaxSize &&
-    cache.generationSettingsSnapshot.languageMode === settings.languageMode
+    cache.generationSettingsSnapshot.regionCode === settings.regionCode
   );
 }
 
@@ -147,9 +147,14 @@ function loadYouTubeIframeApi(): Promise<void> {
   return youtubeApiPromise;
 }
 
+function canUseLoadVideoById(player: YouTubePlayerInstance | null): player is Required<Pick<YouTubePlayerInstance, "loadVideoById">> & YouTubePlayerInstance {
+  return !!player && typeof player.loadVideoById === "function";
+}
+
 export default function WatchClient() {
   const playerRef = useRef<YouTubePlayerInstance | null>(null);
-  const playerMountIdRef = useRef("yt-player-root");
+  const playerMountIdRef = useRef(`yt-player-root-${Math.random().toString(36).slice(2)}`);
+  const playerHostRef = useRef<HTMLDivElement | null>(null);
   const channelRailRef = useRef<HTMLDivElement | null>(null);
 
   const selectedVideoIdRef = useRef("");
@@ -357,9 +362,62 @@ export default function WatchClient() {
     }
   }, []);
 
+  useEffect(() => {
+    const host = playerHostRef.current;
+    if (!host) {
+      return;
+    }
+
+    const existingMount = host.querySelector(`#${playerMountIdRef.current}`);
+    if (existingMount) {
+      return;
+    }
+
+    host.replaceChildren();
+    const mountNode = document.createElement("div");
+    mountNode.id = playerMountIdRef.current;
+    mountNode.style.width = "100%";
+    mountNode.style.height = "100%";
+    mountNode.style.position = "absolute";
+    mountNode.style.inset = "0";
+    host.appendChild(mountNode);
+  }, []);
+
   const ensurePlayer = useCallback(
     async (videoId: string) => {
+      selectedVideoIdRef.current = videoId;
+
       await loadYouTubeIframeApi();
+
+      const host = playerHostRef.current;
+      if (!host) {
+        return;
+      }
+
+      let mountNode = host.querySelector<HTMLDivElement>(`#${playerMountIdRef.current}`);
+      if (!mountNode) {
+        host.replaceChildren();
+        mountNode = document.createElement("div");
+        mountNode.id = playerMountIdRef.current;
+        mountNode.style.width = "100%";
+        mountNode.style.height = "100%";
+        mountNode.style.position = "absolute";
+        mountNode.style.inset = "0";
+        host.appendChild(mountNode);
+      }
+
+      if (playerRef.current && !canUseLoadVideoById(playerRef.current)) {
+        playerRef.current.destroy?.();
+        playerRef.current = null;
+        host.replaceChildren();
+        mountNode = document.createElement("div");
+        mountNode.id = playerMountIdRef.current;
+        mountNode.style.width = "100%";
+        mountNode.style.height = "100%";
+        mountNode.style.position = "absolute";
+        mountNode.style.inset = "0";
+        host.appendChild(mountNode);
+      }
 
       if (!playerRef.current && typeof window !== "undefined" && window.YT?.Player) {
         playerRef.current = new window.YT.Player(playerMountIdRef.current, {
@@ -372,6 +430,15 @@ export default function WatchClient() {
             playsinline: 1,
           },
           events: {
+            onReady: () => {
+              if (
+                playerRef.current &&
+                typeof playerRef.current.loadVideoById === "function" &&
+                selectedVideoIdRef.current
+              ) {
+                playerRef.current.loadVideoById(selectedVideoIdRef.current);
+              }
+            },
             onStateChange: (event) => {
               const endedValue = window.YT?.PlayerState?.ENDED;
               const playingValue = window.YT?.PlayerState?.PLAYING;
@@ -393,7 +460,7 @@ export default function WatchClient() {
         return;
       }
 
-      if (playerRef.current) {
+      if (playerRef.current && typeof playerRef.current.loadVideoById === "function") {
         playerRef.current.loadVideoById(videoId);
       }
     },
@@ -402,7 +469,7 @@ export default function WatchClient() {
 
   useEffect(() => {
     return () => {
-      playerRef.current?.destroy();
+      playerRef.current?.destroy?.();
       playerRef.current = null;
     };
   }, []);
@@ -697,8 +764,13 @@ export default function WatchClient() {
         loadChannelCache(channelIndex)?.playlist ??
         [];
 
-      if (!success && !playlist.length) {
-        setStatusMessage("Failed to build the playlist.");
+      if (!playlist.length) {
+        if (!success) {
+          setStatusMessage("No video. Try changing the playlist setup.");
+          return;
+        }
+
+        setStatusMessage("No video. Try changing the playlist setup.");
         return;
       }
 
@@ -992,7 +1064,7 @@ export default function WatchClient() {
               ) : null}
 
               <div
-                id={playerMountIdRef.current}
+                ref={playerHostRef}
                 style={{
                   width: "100%",
                   height: "100%",

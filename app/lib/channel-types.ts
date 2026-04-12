@@ -13,7 +13,7 @@ export type VideoItem = {
 export type PlaylistGenerationSnapshot = {
   durationMode: string;
   playlistMaxSize: number;
-  languageMode: string;
+  regionCode: string;
 };
 
 export type ChannelCacheData = {

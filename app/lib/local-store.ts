@@ -16,25 +16,26 @@ export type PlaylistDurationMode =
   | "all"
   | "max_179";
 
-export type PlaylistLanguageMode =
-  | "en"
-  | "ko"
-  | "ja"
-  | "zh"
-  | "hi"
-  | "pt-BR"
-  | "all";
+export type PlaylistRegionCode =
+  | "US"
+  | "KR"
+  | "JP"
+  | "IN"
+  | "BR"
+  | "DE"
+  | "FR"
+  | "ES";
 
 export type PlaylistGenerationSettings = {
   durationMode: PlaylistDurationMode;
   playlistMaxSize: number;
-  languageMode: PlaylistLanguageMode;
+  regionCode: PlaylistRegionCode;
 };
 
 const DEFAULT_PLAYLIST_GENERATION_SETTINGS: PlaylistGenerationSettings = {
   durationMode: "min_180",
   playlistMaxSize: 300,
-  languageMode: "en",
+  regionCode: "US",
 };
 
 function canUseStorage(): boolean {
@@ -63,15 +64,16 @@ function isValidDurationMode(value: unknown): value is PlaylistDurationMode {
   );
 }
 
-function isValidLanguageMode(value: unknown): value is PlaylistLanguageMode {
+function isValidRegionCode(value: unknown): value is PlaylistRegionCode {
   return (
-    value === "en" ||
-    value === "ko" ||
-    value === "ja" ||
-    value === "zh" ||
-    value === "hi" ||
-    value === "pt-BR" ||
-    value === "all"
+    value === "US" ||
+    value === "KR" ||
+    value === "JP" ||
+    value === "IN" ||
+    value === "BR" ||
+    value === "DE" ||
+    value === "FR" ||
+    value === "ES"
   );
 }
 
@@ -105,9 +107,9 @@ function normalizePlaylistGenerationSettings(
       ? input.durationMode
       : DEFAULT_PLAYLIST_GENERATION_SETTINGS.durationMode,
     playlistMaxSize: normalizePlaylistMaxSize(input?.playlistMaxSize),
-    languageMode: isValidLanguageMode(input?.languageMode)
-      ? input.languageMode
-      : DEFAULT_PLAYLIST_GENERATION_SETTINGS.languageMode,
+    regionCode: isValidRegionCode((input as { regionCode?: unknown } | null | undefined)?.regionCode)
+      ? (input as { regionCode: PlaylistRegionCode }).regionCode
+      : DEFAULT_PLAYLIST_GENERATION_SETTINGS.regionCode,
   };
 }
 

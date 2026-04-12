@@ -2,7 +2,6 @@ import type { KeywordSearchResult, VideoItem } from "@/app/lib/channel-types";
 import {
   loadPlaylistGenerationSettings,
   type PlaylistDurationMode,
-  type PlaylistLanguageMode,
 } from "@/app/lib/local-store";
 
 const HOST = "www.googleapis.com";
@@ -27,23 +26,17 @@ export async function fetchVideosForKeyword(params: {
     return { videos: [], nextPageToken: null };
   }
 
-  const relevanceLanguage = getRelevanceLanguage(generationSettings.languageMode);
-
   const queryParams: Record<string, string> = {
     part: "snippet",
     q: trimmedKeyword,
     type: "video",
     maxResults: String(params.maxResults ?? 50),
     order: "relevance",
-    regionCode: "US",
+    regionCode: generationSettings.regionCode,
     safeSearch: "moderate",
     videoEmbeddable: "true",
     key: trimmedApiKey,
   };
-
-  if (relevanceLanguage) {
-    queryParams.relevanceLanguage = relevanceLanguage;
-  }
 
   const trimmedPageToken = params.pageToken?.trim() ?? "";
   if (trimmedPageToken) {
@@ -131,27 +124,6 @@ export async function fetchVideosForKeyword(params: {
     videos: orderedVideos,
     nextPageToken,
   };
-}
-
-function getRelevanceLanguage(languageMode: PlaylistLanguageMode): string | null {
-  switch (languageMode) {
-    case "en":
-      return "en";
-    case "ko":
-      return "ko";
-    case "ja":
-      return "ja";
-    case "zh":
-      return "zh";
-    case "hi":
-      return "hi";
-    case "pt-BR":
-      return "pt";
-    case "all":
-      return null;
-    default:
-      return "en";
-  }
 }
 
 function matchesDurationFilter(

@@ -9,7 +9,7 @@ import {
   savePlaylistGenerationSettings,
   type PlaylistDurationMode,
   type PlaylistGenerationSettings,
-  type PlaylistLanguageMode,
+  type PlaylistRegionCode,
 } from "@/app/lib/local-store";
 
 const durationOptions: Array<{
@@ -44,45 +44,50 @@ const durationOptions: Array<{
   },
 ];
 
-const languageOptions: Array<{
-  value: PlaylistLanguageMode;
+const regionOptions: Array<{
+  value: PlaylistRegionCode;
   label: string;
   description: string;
 }> = [
   {
-    value: "en",
-    label: "English priority",
-    description: "Search should prefer English-focused results.",
+    value: "US",
+    label: "United States",
+    description: "Best overall global-style results. Recommended default.",
   },
   {
-    value: "ko",
-    label: "Korean priority",
-    description: "Search should prefer Korean-focused results.",
+    value: "KR",
+    label: "Korea",
+    description: "Korea-focused search results.",
   },
   {
-    value: "ja",
-    label: "Japanese priority",
-    description: "Search should prefer Japanese-focused results.",
+    value: "JP",
+    label: "Japan",
+    description: "Japan-focused search results.",
   },
   {
-    value: "zh",
-    label: "Chinese priority",
-    description: "Search should prefer Chinese-focused results.",
+    value: "IN",
+    label: "India",
+    description: "Very large content pool and strong YouTube activity.",
   },
   {
-    value: "hi",
-    label: "Hindi priority",
-    description: "Search should prefer Hindi-focused results.",
+    value: "BR",
+    label: "Brazil",
+    description: "Strong South American content and trends.",
   },
   {
-    value: "pt-BR",
-    label: "Brazilian Portuguese priority",
-    description: "Search should prefer Brazilian Portuguese-focused results.",
+    value: "DE",
+    label: "Germany",
+    description: "European content with strong production quality.",
   },
   {
-    value: "all",
-    label: "All languages",
-    description: "Do not push one language first.",
+    value: "FR",
+    label: "France",
+    description: "French and European-focused content.",
+  },
+  {
+    value: "ES",
+    label: "Spain",
+    description: "Spanish-language content useful for Europe and Latin audiences.",
   },
 ];
 
@@ -93,8 +98,8 @@ function getDurationLabel(value: PlaylistDurationMode): string {
   return matched?.label ?? value;
 }
 
-function getLanguageLabel(value: PlaylistLanguageMode): string {
-  const matched = languageOptions.find((item) => item.value === value);
+function getRegionLabel(value: PlaylistRegionCode): string {
+  const matched = regionOptions.find((item) => item.value === value);
   return matched?.label ?? value;
 }
 
@@ -122,10 +127,10 @@ export default function PlaylistSetupClient() {
     }));
   }
 
-  function updateLanguageMode(value: PlaylistLanguageMode): void {
+  function updateRegionCode(value: PlaylistRegionCode): void {
     setSettings((current) => ({
       ...current,
-      languageMode: value,
+      regionCode: value,
     }));
   }
 
@@ -149,9 +154,8 @@ export default function PlaylistSetupClient() {
           <p className="eyebrow">Step 3</p>
           <h1 className="heroTitle">Set playlist generation rules</h1>
           <p className="heroDescription">
-            This page saves only the playlist generation settings.
-            It does not change the watch logic yet.
-            In other words, this is the safe first step before connecting the settings to real YouTube search and playlist build flow.
+            This page saves your playlist generation settings in this browser.
+            You can choose video duration, playlist size, and one global region code for YouTube search.
           </p>
 
           <div className="heroButtons">
@@ -170,21 +174,23 @@ export default function PlaylistSetupClient() {
           <article className="featureCard">
             <h2 className="cardTitle">What this page changes</h2>
             <p className="cardText">
-              It saves your preferred video duration rule, playlist max size, and language priority in this browser.
+              It saves your preferred video duration rule, playlist max size, and global region code in this browser.
             </p>
           </article>
 
           <article className="featureCard">
-            <h2 className="cardTitle">What this page does not change yet</h2>
+            <h2 className="cardTitle">Why region code matters</h2>
             <p className="cardText">
-              It does not rewrite watch logic, autoplay logic, load more logic, or existing channel cache logic yet.
+              Region code changes the country-based search direction before the playlist is built.
+              In this project it is more important than the old language priority setting.
             </p>
           </article>
 
           <article className="featureCard">
-            <h2 className="cardTitle">Why this is safer</h2>
+            <h2 className="cardTitle">Safe testing tip</h2>
             <p className="cardText">
-              The current project is already working, so it is better to save the settings first and connect them in a smaller second step.
+              Change one setting at a time, save it, then open Watch and test one channel.
+              Small changes are easier to understand.
             </p>
           </article>
         </div>
@@ -301,9 +307,9 @@ export default function PlaylistSetupClient() {
             </article>
 
             <article className="featureCard">
-              <h3 className="cardTitle">3. Language priority</h3>
+              <h3 className="cardTitle">3. Search region code</h3>
               <p className="cardText" style={{ marginBottom: 18 }}>
-                Choose whether search should focus on one language first or stay open to all languages.
+                Choose one global country-based YouTube search direction for all channels.
               </p>
 
               <div
@@ -313,8 +319,8 @@ export default function PlaylistSetupClient() {
                   gap: 12,
                 }}
               >
-                {languageOptions.map((option) => {
-                  const isSelected = settings.languageMode === option.value;
+                {regionOptions.map((option) => {
+                  const isSelected = settings.regionCode === option.value;
 
                   return (
                     <label
@@ -334,9 +340,9 @@ export default function PlaylistSetupClient() {
                     >
                       <input
                         type="radio"
-                        name="languageMode"
+                        name="regionCode"
                         checked={isSelected}
-                        onChange={() => updateLanguageMode(option.value)}
+                        onChange={() => updateRegionCode(option.value)}
                         style={{ marginTop: 4 }}
                       />
                       <div>
@@ -394,15 +400,15 @@ export default function PlaylistSetupClient() {
               Playlist max size: {settings.playlistMaxSize}
             </p>
             <p className="cardText">
-              Language priority: {getLanguageLabel(settings.languageMode)}
+              Search region: {getRegionLabel(settings.regionCode)}
             </p>
           </article>
 
           <article className="featureCard">
             <h2 className="cardTitle">Important next step</h2>
             <p className="cardText">
-              Right now this page only saves the settings.
-              In the next safe step, the watch playlist build flow can be updated to read these values and apply them during real YouTube search.
+              Save the settings, then open Watch and rebuild the playlist from a channel button.
+              Region code changes usually affect search results strongly.
             </p>
           </article>
         </div>
