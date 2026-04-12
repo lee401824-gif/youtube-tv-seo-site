@@ -67,6 +67,11 @@ type FetchVideosBatchResult = {
   nextPageTokenByKeyword: Record<string, string>;
 };
 
+type RemoveBrokenVideoResult = {
+  updatedPlaylist: VideoItem[];
+  nextIndex: number;
+};
+
 let youtubeApiPromise: Promise<void> | null = null;
 
 function cloneGenerationSettingsSnapshot(
@@ -285,6 +290,87 @@ export default function WatchClient() {
     isLoading,
   ]);
 
+  const removeBrokenVideoFromCache = useCallback(
+    (channelIndex: number, videoIndex: number): RemoveBrokenVideoResult => {
+      const existingCache = channelCacheBySlotRef.current[channelIndex];
+      const existingPlaylist = existingCache?.playlist ?? [];
+
+      if (!existingCache || !existingPlaylist.length) {
+        return { updatedPlaylist: [], nextIndex: 0 };
+      }
+
+      if (videoIndex < 0 || videoIndex >= existingPlaylist.length) {
+        return { updatedPlaylist: existingPlaylist, nextIndex: 0 };
+      }
+
+      const updatedPlaylist = existingPlaylist.filter((_, index) => index !== videoIndex);
+
+      const updatedCache: ChannelCacheData = {
+        ...existingCache,
+        playlist: updatedPlaylist,
+      };
+
+      const storageKey = getSlotStorageKey(channelIndex);
+
+      if (!updatedPlaylist.length) {
+        clearChannelCache(channelIndex);
+        clearPlaybackProgress(storageKey);
+
+        const nextCacheBySlot = { ...channelCacheBySlotRef.current };
+        delete nextCacheBySlot[channelIndex];
+        channelCacheBySlotRef.current = nextCacheBySlot;
+        setChannelCacheBySlot(nextCacheBySlot);
+
+        setSessionNextVideoIndexBySlot((current) => ({
+          ...current,
+          [channelIndex]: 0,
+        }));
+
+        if (currentChannelIndexRef.current === channelIndex) {
+          currentVideoIndexRef.current = 0;
+          setCurrentVideoIndex(0);
+        }
+
+        selectedVideoIdRef.current = "";
+
+        return { updatedPlaylist: [], nextIndex: 0 };
+      }
+
+      const nextIndex = videoIndex >= updatedPlaylist.length ? 0 : videoIndex;
+      const nextVideo = updatedPlaylist[nextIndex] ?? null;
+
+      saveChannelCache(channelIndex, updatedCache);
+      channelCacheBySlotRef.current = {
+        ...channelCacheBySlotRef.current,
+        [channelIndex]: updatedCache,
+      };
+      setChannelCacheBySlot((current) => ({
+        ...current,
+        [channelIndex]: updatedCache,
+      }));
+
+      if (nextVideo) {
+        saveLastVideoIndex(storageKey, nextIndex);
+        saveLastVideoId(storageKey, nextVideo.videoId);
+
+        setSessionNextVideoIndexBySlot((current) => ({
+          ...current,
+          [channelIndex]: (nextIndex + 1) % updatedPlaylist.length,
+        }));
+
+        if (currentChannelIndexRef.current === channelIndex) {
+          currentVideoIndexRef.current = nextIndex;
+          setCurrentVideoIndex(nextIndex);
+        }
+
+        selectedVideoIdRef.current = nextVideo.videoId;
+      }
+
+      return { updatedPlaylist, nextIndex };
+    },
+    [],
+  );
+
   const handleVideoEnded = useCallback(async () => {
     if (isAdvancingRef.current) return;
 
@@ -333,34 +419,35 @@ export default function WatchClient() {
     try {
       consecutiveErrorCountRef.current += 1;
 
-      if (consecutiveErrorCountRef.current >= playlist.length) {
-        setStatusMessage(
-          `There are no playable videos in ${getChannelLabel(
-            channelsRef.current[channelIndex],
-            channelIndex,
-          )}.`,
-        );
-        return;
-      }
-
-      setStatusMessage("This video could not be played. Skipping to the next video...");
-      await new Promise((resolve) => window.setTimeout(resolve, 500));
-
-      const nextIndex = (videoIndex + 1) % playlist.length;
       const channelLabel = getChannelLabel(
         channelsRef.current[channelIndex],
         channelIndex,
       );
 
+      const removalResult = removeBrokenVideoFromCache(channelIndex, videoIndex);
+
+      if (!removalResult.updatedPlaylist.length) {
+        setStatusMessage(`There are no playable videos in ${channelLabel}.`);
+        return;
+      }
+
+      if (consecutiveErrorCountRef.current >= playlist.length) {
+        setStatusMessage(`There are no playable videos in ${channelLabel}.`);
+        return;
+      }
+
+      setStatusMessage("This video could not be played. Removing it and skipping to the next video...");
+      await new Promise((resolve) => window.setTimeout(resolve, 500));
+
       await playSpecificVideoRef.current({
         channelIndex,
-        videoIndex: nextIndex,
+        videoIndex: removalResult.nextIndex,
         updateStatusPrefix: `${channelLabel} auto-skipping to next video`,
       });
     } finally {
       isHandlingVideoErrorRef.current = false;
     }
-  }, []);
+  }, [removeBrokenVideoFromCache]);
 
   useEffect(() => {
     const host = playerHostRef.current;
